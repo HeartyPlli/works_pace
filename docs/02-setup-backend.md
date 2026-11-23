@@ -242,8 +242,12 @@ You now have:
 - 20 students, 5 resolutions, 2 charges, 17 payments
 - 10 Error Fix Journal entries with 11 tags
 
-> **Run `db:seed` only once.** Running it again gives the error
-> `Duplicate entry 'officer@example.com'`, because the accounts already exist.
+> **Running `db:seed` again is safe.** When the accounts already exist, it only prints
+> `The database already has accounts, so seeding is skipped.` and adds nothing.
+>
+> **Optional:** to choose your own passwords instead of `password`, open `backend/.env` BEFORE you seed,
+> remove the `#` in front of `OFFICER_PASSWORD` and `VIEWER_PASSWORD`, and type your passwords there.
+> To start with no sample data at all, also remove the `#` in front of `SEED_SAMPLE_DATA=false`.
 
 **Tip: start over with fresh data.** This command deletes ALL tables and data, makes them again, and seeds them:
 

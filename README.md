@@ -53,6 +53,8 @@ This project is made for learning. The code is kept simple on purpose, and every
 > **IMPORTANT:** Everybody who reads this README knows these passwords.
 > Change them before real people use the app.
 > See part E of [docs/06-manual-steps-checklist.md](docs/06-manual-steps-checklist.md#e-change-the-default-passwords-before-real-people-use-the-app).
+> On a live website you MUST choose your own passwords (`OFFICER_PASSWORD` and `VIEWER_PASSWORD`).
+> The app refuses to use `password` there. See [docs/10-deploy-to-railway.md](docs/10-deploy-to-railway.md).
 
 ---
 
@@ -127,6 +129,20 @@ Step by step: [docs/09-put-it-on-github.md](docs/09-put-it-on-github.md)
 
 ---
 
+## Putting it online (a website you can visit)
+
+The project is ready to run on **Railway**, a hosting service that builds it straight from your GitHub repository.
+You make three parts in one Railway project: a **MySQL** database, the **backend** (Laravel API), and the
+**frontend** (React app). After that, every `git push` updates the website by itself.
+
+- **Cost:** free for the first 30 days (a one-time $5 credit, no credit card), then about $5 per month (Hobby plan).
+- **Safety:** on the live website you choose your own passwords, error details are hidden, and the database is
+  not open to the internet.
+
+Step by step: [docs/10-deploy-to-railway.md](docs/10-deploy-to-railway.md)
+
+---
+
 ## All the guides
 
 | File | What it teaches |
@@ -140,6 +156,7 @@ Step by step: [docs/09-put-it-on-github.md](docs/09-put-it-on-github.md)
 | [07-troubleshooting.md](docs/07-troubleshooting.md) | Common errors and how to fix them |
 | [08-how-to-add-a-feature.md](docs/08-how-to-add-a-feature.md) | Add a new field and a new page yourself |
 | [09-put-it-on-github.md](docs/09-put-it-on-github.md) | Upload to GitHub safely, back up and move the database |
+| [10-deploy-to-railway.md](docs/10-deploy-to-railway.md) | Deploy it to a live website you can visit (Railway) |
 
 ---
 
@@ -163,4 +180,6 @@ We had to choose some things. Here they are, so you know what to expect.
 | Journal entries | Every logged in user can read every entry | Viewers can read, but only officers can add or change. |
 | Deleting a student | Also deletes their charges and payments | The app asks "Are you sure?" first. |
 | Payments | Cannot be bigger than the balance | Stops mistakes like typing 1500 instead of 150. |
-| CORS | All origins allowed (`*`) in `backend/config/cors.php` | Fine with token login while learning. Change it if you put the app online. |
+| CORS | All origins allowed (`*`), unless `FRONTEND_URL` is set (`backend/config/cors.php`) | Fine with token login while learning. On a live website, set `FRONTEND_URL`. |
+| Seeding | Safe to run again: it skips itself when the accounts exist | A live website runs it on every deploy without adding things twice. |
+| Hosting | Railway (MySQL + backend + frontend from one GitHub repo) | Easiest path from `git push` to a live website. Checked November 2026. |

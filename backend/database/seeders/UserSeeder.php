@@ -1,8 +1,12 @@
 <?php
 
 // UserSeeder.php
-// Makes the two starting accounts. Both have the password "password".
-// IMPORTANT: change these passwords before real people use the app (see the README).
+// Makes the two starting accounts: one officer and one viewer.
+//
+// The passwords come from two settings (in .env, or in your hosting's variables):
+//   OFFICER_PASSWORD and VIEWER_PASSWORD
+// On your own computer you can leave them out. Then both passwords are "password".
+// On a live website (APP_ENV=production) they MUST be set, or this seeder stops with an error.
 
 namespace Database\Seeders;
 
@@ -14,11 +18,28 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
+        $officerPassword = env('OFFICER_PASSWORD');
+        $viewerPassword = env('VIEWER_PASSWORD');
+
+        // A live website must never get the easy password "password".
+        $passwordsMissing = empty($officerPassword) || empty($viewerPassword);
+        if (app()->environment('production') && $passwordsMissing) {
+            throw new \RuntimeException('Set OFFICER_PASSWORD and VIEWER_PASSWORD before seeding a live website.');
+        }
+
+        // On your own computer, use "password" when nothing is set.
+        if (empty($officerPassword)) {
+            $officerPassword = 'password';
+        }
+        if (empty($viewerPassword)) {
+            $viewerPassword = 'password';
+        }
+
         // The officer can add, edit, and delete everything.
         User::create([
             'name' => 'Council Officer',
             'email' => 'officer@example.com',
-            'password' => Hash::make('password'),
+            'password' => Hash::make($officerPassword),
             'role' => 'officer',
         ]);
 
@@ -26,7 +47,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Council Viewer',
             'email' => 'viewer@example.com',
-            'password' => Hash::make('password'),
+            'password' => Hash::make($viewerPassword),
             'role' => 'viewer',
         ]);
     }

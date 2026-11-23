@@ -32,7 +32,7 @@ Guide: [02-setup-backend.md](02-setup-backend.md). Type these commands in the `b
 - [ ] Create an empty database named `workspace` (phpMyAdmin or the command line).
 - [ ] Check `DB_DATABASE`, `DB_USERNAME`, and `DB_PASSWORD` in `backend/.env`.
 - [ ] Run `php artisan migrate`
-- [ ] Run `php artisan db:seed` (only once)
+- [ ] Run `php artisan db:seed`
 
 ## C. Set up the frontend (one time per computer)
 
@@ -91,8 +91,9 @@ and run it right away.
 - [ ] **Step 5.** Type `exit` and press **Enter** to leave Tinker.
 - [ ] **Step 6.** Log out of the app and log in with the new password to check it.
 
-> Another way: before you run `php artisan db:seed` the first time, change the emails and passwords in
-> `backend/database/seeders/UserSeeder.php`.
+> Another way: before you run `php artisan db:seed` the first time, set `OFFICER_PASSWORD` and
+> `VIEWER_PASSWORD` in `backend/.env` (remove the `#` in front of them). The seeder uses them instead of `password`.
+> On a live website this is required: see [10-deploy-to-railway.md](10-deploy-to-railway.md).
 
 ## F. Before you upload to GitHub
 
@@ -105,13 +106,14 @@ Guide: [09-put-it-on-github.md](09-put-it-on-github.md)
 ## G. Only if you put the app on the internet
 
 You do not need these while you learn on your own computer.
+Full step by step guide: [10-deploy-to-railway.md](10-deploy-to-railway.md)
 
-- [ ] In `backend/.env`, set `APP_ENV=production` and `APP_DEBUG=false` (so error details stay hidden).
-- [ ] In `backend/config/cors.php`, change `'allowed_origins' => ['*']` to your React app's real address.
-- [ ] Use a strong database password, and put it in `DB_PASSWORD`.
+- [ ] Set `APP_ENV=production` and `APP_DEBUG=false` on the server (so error details stay hidden).
+- [ ] Set strong `OFFICER_PASSWORD` and `VIEWER_PASSWORD` on the server BEFORE the first seed.
+- [ ] Set `FRONTEND_URL` on the server to your React app's address, so only your website can call the API.
 - [ ] Use `https://` addresses for both the API and the React app.
-- [ ] Make regular backups of the database (phpMyAdmin: select `workspace`, then **Export**).
 - [ ] Do not use `php artisan migrate:fresh` there. It deletes all data.
+- [ ] Know how to stop the costs (delete the project on the hosting service).
 
 ---
 

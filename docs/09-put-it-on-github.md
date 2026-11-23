@@ -3,7 +3,7 @@
 This guide shows how to upload Workspace to GitHub so that it **keeps working**, both on your computer
 and for anyone who downloads it. It also explains what happens to the **database**.
 
-[Back to README](../README.md) | Before this: [08. How to add a feature](08-how-to-add-a-feature.md)
+[Back to README](../README.md) | Before this: [08. How to add a feature](08-how-to-add-a-feature.md) | Next: [10. Deploy to a live website](10-deploy-to-railway.md)
 
 ---
 
@@ -17,7 +17,8 @@ and for anyone who downloads it. It also explains what happens to the **database
 3. **Your secrets are NOT uploaded.** The `.env` files (database password, app key) are on the ignore list.
    Each computer makes its own `.env` from `.env.example`.
 4. **GitHub cannot give you a live link for the whole app**, because GitHub cannot run PHP or MySQL.
-   See [Part 6](#part-6-can-i-make-it-live-on-the-internet).
+   See [Part 6](#part-6-can-i-make-it-live-on-the-internet) and the live website guide,
+   [10-deploy-to-railway.md](10-deploy-to-railway.md).
 
 > **Tested:** we uploaded this project to a test Git repository, downloaded it into a new empty folder,
 > followed guides 02 and 03, and logged in. It worked, with the same sample data.
@@ -297,19 +298,11 @@ Not with GitHub alone. A live version of Workspace needs three things:
 If you put only the React app on GitHub Pages, the login page appears, but every request fails with
 "Cannot reach the server", because there is no API behind it.
 
-So a live version needs a **hosting service** for Laravel and MySQL (some are free with limits,
-many cost a few dollars per month). After you pick one, these things change:
+So a live version needs a **hosting service** that runs Laravel and MySQL. We use **Railway**:
+it builds all three parts (MySQL, the Laravel API, and the React app) straight from your GitHub repository,
+and updates the website every time you push. It is free for the first 30 days, then about $5 per month.
 
-1. The API and the database are set up on the host. Run `php artisan migrate --seed` there,
-   then **change the default passwords right away** ([06-manual-steps-checklist.md](06-manual-steps-checklist.md#e-change-the-default-passwords-before-real-people-use-the-app)).
-2. `VITE_API_URL` points to the live API address (for example `https://api.your-site.com/api`) when you run `npm run build`.
-3. `backend/config/cors.php` allows only your live React address.
-4. `backend/.env` on the host has `APP_ENV=production` and `APP_DEBUG=false`.
-5. If the React app is on GitHub Pages, it needs two small settings, because GitHub Pages serves
-   the app from `https://YOUR-NAME.github.io/workspace/` and cannot handle addresses like `/students`
-   on its own.
-
-This project does not include a live setup yet. Plan it as a separate step, after your code is safely on GitHub.
+**Step by step:** [10. Deploy Workspace to a live website (Railway)](10-deploy-to-railway.md)
 
 ---
 

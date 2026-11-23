@@ -154,15 +154,16 @@ php artisan db:seed
 
 ---
 
-## Duplicate entry when seeding
+## Seeding says it was skipped
 
-**Error:**
+**Message:**
 
 ```
-SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'officer@example.com' for key 'users_email_unique'
+The database already has accounts, so seeding is skipped.
 ```
 
-**Why:** you ran `php artisan db:seed` two times. The accounts already exist.
+**Why:** this is not an error. The database already has the two accounts, so `php artisan db:seed`
+does nothing, to avoid adding everything twice.
 
 **Fix:** you do not need to seed again. If you really want fresh sample data, run this
 (it **deletes all data**):
@@ -170,6 +171,25 @@ SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'officer@e
 ```powershell
 php artisan migrate:fresh --seed
 ```
+
+> If you run ONE seeder by itself (for example `php artisan db:seed --class=UserSeeder`) a second time,
+> you get `Duplicate entry 'officer@example.com' for key 'users_email_unique'`. Same fix: you do not need it again.
+
+---
+
+## Seeding stops with "Set OFFICER_PASSWORD and VIEWER_PASSWORD"
+
+**Error:**
+
+```
+Set OFFICER_PASSWORD and VIEWER_PASSWORD before seeding a live website.
+```
+
+**Why:** `APP_ENV` is `production` (a live website), and the two password settings are missing.
+The seeder stops on purpose, so a live website never gets the easy password `password`.
+
+**Fix:** set both `OFFICER_PASSWORD` and `VIEWER_PASSWORD` (on Railway: the backend's **Variables** tab),
+then seed or deploy again. On your own computer, keep `APP_ENV=local` in `backend/.env`.
 
 ---
 
@@ -221,15 +241,18 @@ has been blocked by CORS policy
 
 1. The Laravel server is not running, or it crashed. (A crashed request often looks like a CORS error.)
 2. `VITE_API_URL` in `frontend/.env` has a typo (for example, a missing `/api`, or the wrong port).
-3. `backend/config/cors.php` was changed.
+3. `FRONTEND_URL` is set in `backend/.env` (or on the server) to an address that does not match the React app,
+   or `backend/config/cors.php` was changed.
 
 **Fix:**
 
 1. Check Terminal 1. Is `php artisan serve` running? Any red error there or in `storage/logs/laravel.log`?
 2. Open `frontend/.env`. It should be exactly `VITE_API_URL=http://127.0.0.1:8000/api`.
    After changing it, stop `npm run dev` (**Ctrl + C**) and start it again.
-3. In `backend/config/cors.php`, `'paths'` must include `'api/*'`, and `'allowed_origins'` must be `['*']`
-   (or include `http://localhost:5173`). Then run `php artisan config:clear`.
+3. On your own computer, `FRONTEND_URL` should stay commented out (`# FRONTEND_URL=...`) in `backend/.env`,
+   so every origin is allowed. In `backend/config/cors.php`, `'paths'` must include `'api/*'`.
+   Then run `php artisan config:clear`.
+4. On a live website, see [10-deploy-to-railway.md, Part 7](10-deploy-to-railway.md#part-7-extra-safety-allow-only-your-website-to-call-the-api).
 
 ---
 
