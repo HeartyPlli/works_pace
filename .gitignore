@@ -1,0 +1,19 @@
+# .gitignore (top folder)
+# Files and folders that Git must NEVER upload to GitHub.
+# The backend and frontend folders also have their own .gitignore files.
+
+# Database backups. They can hold real student names and payments.
+# Keep them on your computer (or another private place), never on GitHub.
+*.sql
+*.sql.gz
+*.sql.zip
+
+# Settings files with passwords and secret keys.
+# (Also listed in backend/.gitignore and frontend/.gitignore, to be extra safe.)
+.env
+
+# Editor and system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

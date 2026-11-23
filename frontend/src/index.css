@@ -1,0 +1,721 @@
+/*
+  index.css
+  All the styles (colors, sizes, spacing) of the app are in this ONE file.
+  Each part has a comment that says what it is for.
+*/
+
+/* ---------- Basic page ---------- */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  color: #1f2937;
+  background-color: #f3f4f6;
+}
+
+h1 {
+  font-size: 24px;
+  margin: 0 0 16px 0;
+}
+
+h2 {
+  font-size: 18px;
+  margin: 24px 0 12px 0;
+}
+
+a {
+  color: #1d4ed8;
+}
+
+/* Grey, smaller text for extra information */
+.muted {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.text-red {
+  color: #b91c1c;
+}
+
+.text-green {
+  color: #15803d;
+}
+
+/* Keep the line breaks that the user typed */
+.pre-wrap {
+  white-space: pre-wrap;
+}
+
+.monospace {
+  font-family: Consolas, 'Courier New', monospace;
+}
+
+.page-message {
+  padding: 24px;
+  color: #6b7280;
+}
+
+.empty-message {
+  padding: 16px;
+  color: #6b7280;
+  background-color: #ffffff;
+  border-radius: 6px;
+}
+
+/* ---------- Layout: sidebar on the left, content on the right ---------- */
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  background-color: #1e293b;
+  color: #ffffff;
+  padding: 16px 0;
+}
+
+.sidebar-title {
+  font-size: 20px;
+  font-weight: bold;
+  padding: 0 20px 16px 20px;
+}
+
+.sidebar-heading {
+  margin: 16px 20px 4px 20px;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+.sidebar-link {
+  display: block;
+  padding: 10px 20px;
+  color: #e2e8f0;
+  text-decoration: none;
+}
+
+.sidebar-link:hover {
+  background-color: #334155;
+}
+
+/* NavLink adds the "active" class to the link of the page you are on */
+.sidebar-link.active {
+  background-color: #2563eb;
+  color: #ffffff;
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+}
+
+.topbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.content {
+  padding: 24px;
+}
+
+/* ---------- Buttons ---------- */
+
+.button {
+  display: inline-block;
+  padding: 8px 14px;
+  border: 1px solid #2563eb;
+  border-radius: 6px;
+  background-color: #2563eb;
+  color: #ffffff;
+  font-size: 14px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #1d4ed8;
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.button-light {
+  background-color: #ffffff;
+  color: #1f2937;
+  border-color: #d1d5db;
+}
+
+.button-light:hover {
+  background-color: #f3f4f6;
+}
+
+.button-danger {
+  background-color: #dc2626;
+  border-color: #dc2626;
+}
+
+.button-danger:hover {
+  background-color: #b91c1c;
+}
+
+.button-small {
+  padding: 4px 10px;
+  font-size: 13px;
+}
+
+.button-full {
+  width: 100%;
+}
+
+/* A row of buttons with space between them */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ---------- Small colored labels (badges) ---------- */
+
+.badge {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 12px;
+  background-color: #e5e7eb;
+  color: #374151;
+}
+
+.badge-officer,
+.badge-adopted,
+.badge-fee {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.badge-draft {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.badge-filed {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.badge-penalty {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+/* ---------- Messages ---------- */
+
+.alert {
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin: 0 0 16px 0;
+}
+
+.alert-error {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.alert-success {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+/* ---------- Page header, toolbar, and search ---------- */
+
+/* The page title on the left and a button on the right */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.page-header h1 {
+  margin: 0;
+}
+
+/* The row with the search box and filters */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.search-bar {
+  display: flex;
+  gap: 8px;
+}
+
+.search-bar input {
+  width: 260px;
+}
+
+/* ---------- Form inputs ---------- */
+
+input,
+select,
+textarea {
+  padding: 8px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: inherit;
+  background-color: #ffffff;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Each label sits on top of its input */
+.form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.form label input,
+.form label select,
+.form label textarea {
+  font-weight: normal;
+}
+
+/* Two or three inputs side by side */
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.form-row label {
+  flex: 1;
+  min-width: 140px;
+}
+
+/* A checkbox with its text next to it */
+.checkbox-item,
+.form label.checkbox-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  font-weight: normal;
+}
+
+/* The scrolling list of students with checkboxes */
+.checkbox-list {
+  max-height: 240px;
+  overflow-y: auto;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 8px;
+}
+
+.checkbox-list .checkbox-item {
+  padding: 4px 0;
+}
+
+/* ---------- Cards and stat boxes ---------- */
+
+.card {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.card h2:first-child {
+  margin-top: 0;
+}
+
+.stat-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.stat-card {
+  flex: 1;
+  min-width: 180px;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 16px 20px;
+}
+
+.stat-label {
+  margin: 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.stat-value {
+  margin: 6px 0 0 0;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.stat-green {
+  color: #15803d;
+}
+
+.stat-red {
+  color: #b91c1c;
+}
+
+/* Two boxes side by side on the dashboard */
+.two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.simple-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.simple-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+/* ---------- Tables ---------- */
+
+/* Lets a wide table scroll sideways on small screens */
+.table-wrapper {
+  overflow-x: auto;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+  vertical-align: middle;
+}
+
+.table th {
+  background-color: #f9fafb;
+  font-size: 13px;
+  color: #4b5563;
+}
+
+/* ---------- Pop up (Modal) ---------- */
+
+/* The dark see-through background behind the pop up */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 16px;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.modal {
+  width: 100%;
+  max-width: 560px;
+  background-color: #ffffff;
+  border-radius: 8px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.modal-header h2 {
+  margin: 0;
+}
+
+.modal-close {
+  border: none;
+  background: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+/* ---------- Login page ---------- */
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+}
+
+.login-box {
+  width: 100%;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background-color: #ffffff;
+  padding: 32px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.login-box h1 {
+  margin: 0;
+}
+
+.login-box label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* ---------- Error Fix Journal ---------- */
+
+.entry-card-top {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.entry-title {
+  font-weight: bold;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.entry-error {
+  font-family: Consolas, 'Courier New', monospace;
+  font-size: 13px;
+  color: #991b1b;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.star {
+  color: #f59e0b;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.tag {
+  padding: 3px 10px;
+  border: 1px solid #c7d2fe;
+  border-radius: 12px;
+  background-color: #eef2ff;
+  color: #3730a3;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.entry-actions {
+  margin-bottom: 16px;
+}
+
+/* The grey box for code, with the Copy button in the top right corner */
+.code-box {
+  position: relative;
+  background-color: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+}
+
+.code-box pre {
+  margin: 0;
+  padding: 14px;
+  padding-right: 80px;
+  overflow-x: auto;
+  font-family: Consolas, 'Courier New', monospace;
+  font-size: 13px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.code-copy {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+/* ---------- Resolution print page ---------- */
+
+.print-page {
+  padding: 24px;
+}
+
+.print-actions {
+  display: flex;
+  gap: 8px;
+  max-width: 800px;
+  margin: 0 auto 16px auto;
+}
+
+/* Looks like a sheet of paper on the screen */
+.print-document {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.print-organization {
+  text-align: center;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+.print-number {
+  text-align: center;
+  font-size: 20px;
+  margin: 8px 0;
+}
+
+.print-title {
+  text-align: center;
+  font-size: 18px;
+  text-transform: uppercase;
+  margin: 16px 0 32px 0;
+}
+
+.print-text {
+  white-space: pre-wrap;
+  text-align: justify;
+  margin-bottom: 20px;
+}
+
+.print-meta {
+  margin-top: 32px;
+}
+
+.print-signatures {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  margin-top: 64px;
+}
+
+.print-signature {
+  flex: 1;
+  text-align: center;
+}
+
+.print-signature-line {
+  border-bottom: 1px solid #000000;
+  height: 40px;
+}
+
+/* ---------- Rules for paper (when you print) ---------- */
+
+@media print {
+  /* Hide the buttons and the menu */
+  .no-print,
+  .sidebar,
+  .topbar {
+    display: none;
+  }
+
+  body {
+    background-color: #ffffff;
+  }
+
+  .print-page {
+    padding: 0;
+  }
+
+  /* No border or extra space on paper */
+  .print-document {
+    border: none;
+    padding: 0;
+    max-width: none;
+  }
+}
+
+/* ---------- Small screens (phones) ---------- */
+
+@media (max-width: 760px) {
+  .layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+  }
+
+  .two-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .search-bar input {
+    width: 100%;
+  }
+}

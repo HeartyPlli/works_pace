@@ -1,0 +1,16 @@
+# .gitignore
+# Files and folders that Git should NOT save.
+
+# Packages downloaded by npm (you can download them again with "npm install")
+node_modules
+
+# Files made by "npm run build"
+dist
+
+# Your own settings (each computer has its own .env)
+.env
+
+# Log files and editor files
+*.log
+.vscode
+.DS_Store
