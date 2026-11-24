@@ -53,7 +53,7 @@ Only the files we wrote or changed are listed. The rest is normal Laravel.
 | Path | What it is |
 |------|------------|
 | `routes/api.php` | The list of all API addresses, and which controller method answers each one. **Start reading here.** |
-| `app/Http/Controllers/Api/` | One controller per topic. Each method answers one route. |
+| `app/Http/Controllers/` | One controller per topic. Each method answers one route. (`Controller.php` is Laravel's empty base class.) |
 | `app/Http/Middleware/OfficerOnly.php` | The guard that lets only officers change data. |
 | `app/Models/` | One model per table, with the relationships (for example, a `Student` has many `StudentCharge`). |
 | `database/migrations/` | The files that create the tables. |
@@ -101,13 +101,20 @@ users ──< error_entries >──< tags   (through the error_entry_tag table)
 | `src/index.css` | All the styles in one file. |
 | `src/api/client.js` | The ONE axios object. It knows the API address and adds the token to every request. |
 | `src/api/authApi.js`, `dashboardApi.js`, `councilApi.js`, `journalApi.js` | Small functions that call the API, like `getStudents()`. |
-| `src/auth/AuthContext.jsx` | Remembers who is logged in. Has `login()` and `logout()`. Any component can call `useAuth()`. |
-| `src/auth/ProtectedRoute.jsx` | Sends visitors who are not logged in to `/login`. |
-| `src/components/` | Parts that many pages share: `Layout`, `Sidebar`, `Topbar`, `SearchBar`, `Modal`, `DataTable`, `CodeBox`. |
-| `src/pages/` | One file per screen. `council/` and `journal/` hold the pages of each module. |
-| `src/utils/format.js` | Helpers like `formatMoney(150)` gives `PHP 150.00` and `formatResolutionNumber(4, 2026)`. |
-| `src/utils/errors.js` | `getErrorMessage(error)` turns an API error into a short message for the screen. |
+| `src/components/AuthContext.jsx` | Remembers who is logged in. Has `login()` and `logout()`. Any component can call `useAuth()`. |
+| `src/components/ProtectedRoute.jsx` | Sends visitors who are not logged in to `/login`. |
+| `src/components/` (the rest) | Parts that many pages share: `Layout`, `Sidebar`, `Topbar`, `SearchBar`, `Modal`, `DataTable`, `CodeBox`. |
+| `src/pages/` | One file per screen, plus the small forms the screens open in a pop up (like `StudentForm.jsx`). |
+| `src/helpers.js` | Small helpers: `formatMoney(150)` gives `PHP 150.00`, `formatResolutionNumber(4, 2026)`, dates, and `getErrorMessage(error)`, which turns an API error into a short message for the screen. |
 | `.env` | `VITE_API_URL`, the address of the API. |
+
+**The pages, by module:**
+
+| Module | Files in `src/pages/` |
+|--------|------------------------|
+| Login and home | `LoginPage`, `DashboardPage` |
+| Council | `ResolutionsPage`, `ResolutionFormPage`, `ResolutionPrintPage`, `StudentsPage`, `StudentForm`, `StudentLedgerPage`, `PaymentForm`, `ChargesPage`, `ChargeForm`, `AssignChargeForm`, `UnpaidReportPage` |
+| Error Fix Journal | `EntriesPage`, `EntryCard`, `EntryDetailPage`, `EntryFormPage` |
 
 **How a page loads data (the same pattern in every page):**
 
@@ -152,7 +159,7 @@ async function handleSubmit(event) {
 
 `login` comes from `useAuth()`, so the next step is in AuthContext.
 
-### Step 2. The login function (React): `frontend/src/auth/AuthContext.jsx`
+### Step 2. The login function (React): `frontend/src/components/AuthContext.jsx`
 
 ```jsx
 async function login(email, password) {
@@ -210,7 +217,7 @@ This line means: "a POST to `/api/login` is answered by the `login` method of `A
 Laravel adds `/api` in front of every route in this file.
 This route is outside the `auth:sanctum` group, so no token is needed.
 
-### Step 6. The controller checks the password: `backend/app/Http/Controllers/Api/AuthController.php`
+### Step 6. The controller checks the password: `backend/app/Http/Controllers/AuthController.php`
 
 ```php
 public function login(Request $request)

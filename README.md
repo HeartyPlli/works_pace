@@ -72,21 +72,31 @@ workspace/
 - The **frontend** is the "dining room". It shows pages, and asks the backend for data.
 - They talk to each other through an **API** (a list of web addresses that send and receive data).
 
-Inside `backend/`, the folders you will touch most:
+**The folders you will work in** (everything you write is here):
 
-- `app/Http/Controllers/Api/` : the code that answers each request
-- `app/Models/` : one file for each database table
-- `database/migrations/` : the files that create the tables
-- `database/seeders/` : the files that fill the tables with starting data
-- `routes/api.php` : the list of API addresses
+```
+backend/
+  app/Http/Controllers/   <- the code that answers each request (one file per topic)
+  app/Http/Middleware/    <- OfficerOnly.php, the guard that lets only officers change data
+  app/Models/             <- one file for each database table
+  database/migrations/    <- the files that create the tables
+  database/seeders/       <- the files that fill the tables with starting data
+  routes/api.php          <- the list of API addresses
 
-Inside `frontend/src/`, the folders you will touch most:
+frontend/src/
+  pages/                  <- one file for each screen (and the small forms those screens use)
+  components/             <- parts many pages share: sidebar, top bar, table, pop up, login state
+  api/                    <- the functions that call the backend
+  helpers.js              <- small helpers: money and date format, resolution numbers, error messages
+  App.jsx                 <- the list of pages (which address shows which page)
+```
 
-- `pages/` : one file for each screen
-- `components/` : small parts that many pages share (sidebar, table, pop up, search box)
-- `api/` : the functions that call the backend
-- `auth/` : the login state and the page guard
-- `utils/` : small helpers (money format, resolution number format, error messages)
+**The folders you can ignore** (Laravel, Node.js, or Git make and use them; you rarely open them):
+
+- `backend/bootstrap`, `backend/config`, `backend/public`, `backend/storage`
+  (except `storage/logs/laravel.log`, where Laravel writes its errors)
+- `backend/vendor` and `frontend/node_modules` : downloaded packages. Never edit these.
+- `backend/app/Providers` : Laravel's start up file. This app does not change it.
 
 A longer tour is in [docs/05-how-the-code-works.md](docs/05-how-the-code-works.md).
 

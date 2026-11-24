@@ -5,16 +5,16 @@
 // Example: Route::get('/students', ...) answers at http://127.0.0.1:8000/api/students
 // Each route says which controller method should answer it.
 
-use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\ChargeController;
-use App\Http\Controllers\Api\DashboardController;
-use App\Http\Controllers\Api\ErrorEntryController;
-use App\Http\Controllers\Api\PaymentController;
-use App\Http\Controllers\Api\ReportController;
-use App\Http\Controllers\Api\ResolutionController;
-use App\Http\Controllers\Api\StudentChargeController;
-use App\Http\Controllers\Api\StudentController;
-use App\Http\Controllers\Api\TagController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChargeController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ErrorEntryController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ResolutionController;
+use App\Http\Controllers\StudentChargeController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
 // ---------- No login needed ----------

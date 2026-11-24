@@ -5,8 +5,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getDashboard } from '../api/dashboardApi.js';
-import { formatMoney, formatResolutionNumber, capitalize } from '../utils/format.js';
-import { getErrorMessage } from '../utils/errors.js';
+import { formatMoney, formatResolutionNumber, capitalize, getErrorMessage } from '../helpers.js';
 
 export default function DashboardPage() {
   const [dashboard, setDashboard] = useState(null);

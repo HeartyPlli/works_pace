@@ -128,10 +128,10 @@ class JournalSeeder extends Seeder
             ],
             [
                 'title' => 'Controller class not found',
-                'error_message' => 'Target class [App\\Http\\Controllers\\Api\\StudentController] does not exist.',
+                'error_message' => 'Target class [App\\Http\\Controllers\\StudentController] does not exist.',
                 'cause' => 'The namespace at the top of the controller did not match its folder.',
-                'fix' => 'A file in app/Http/Controllers/Api must start with: namespace App\\Http\\Controllers\\Api; Then run composer dump-autoload.',
-                'code_snippet' => "namespace App\\Http\\Controllers\\Api;\n\nuse App\\Http\\Controllers\\Controller;",
+                'fix' => 'A file in app/Http/Controllers must start with: namespace App\\Http\\Controllers; Then run composer dump-autoload.',
+                'code_snippet' => "namespace App\\Http\\Controllers;\n\nclass StudentController extends Controller",
                 'source_url' => 'https://laravel.com/docs/12.x/controllers',
                 'seen_count' => 2,
                 'is_favorite' => false,

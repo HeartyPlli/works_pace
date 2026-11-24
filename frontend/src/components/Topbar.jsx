@@ -2,7 +2,7 @@
 // The bar at the top of the screen. It shows who is logged in and has a Logout button.
 
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../auth/AuthContext.jsx';
+import { useAuth } from './AuthContext.jsx';
 
 export default function Topbar() {
   const { user, logout } = useAuth();

@@ -286,7 +286,7 @@ has been blocked by CORS policy
 **Errors:**
 
 ```
-Target class [App\Http\Controllers\Api\StudentController] does not exist.
+Target class [App\Http\Controllers\StudentController] does not exist.
 Class "App\Models\Student" not found
 ```
 
@@ -296,7 +296,7 @@ Class "App\Models\Student" not found
 
 1. The file name must match the class name exactly: `StudentController.php` has `class StudentController`.
 2. The `namespace` at the top must match the folder:
-   - `app/Http/Controllers/Api/` uses `namespace App\Http\Controllers\Api;`
+   - `app/Http/Controllers/` uses `namespace App\Http\Controllers;`
    - `app/Models/` uses `namespace App\Models;`
 3. At the top of the file that USES the class, check the `use` line (for example `use App\Models\Student;`).
 4. Refresh Composer's class list:

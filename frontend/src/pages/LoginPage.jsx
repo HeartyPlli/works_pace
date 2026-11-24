@@ -4,8 +4,8 @@
 
 import { useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
-import { useAuth } from '../auth/AuthContext.jsx';
-import { getErrorMessage } from '../utils/errors.js';
+import { useAuth } from '../components/AuthContext.jsx';
+import { getErrorMessage } from '../helpers.js';
 
 export default function LoginPage() {
   const { user, login } = useAuth();

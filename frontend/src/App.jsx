@@ -3,20 +3,20 @@
 // Each <Route> connects an address (like /students) to a page component.
 
 import { Routes, Route, Navigate } from 'react-router-dom';
-import ProtectedRoute from './auth/ProtectedRoute.jsx';
+import ProtectedRoute from './components/ProtectedRoute.jsx';
 import Layout from './components/Layout.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import DashboardPage from './pages/DashboardPage.jsx';
-import ResolutionsPage from './pages/council/ResolutionsPage.jsx';
-import ResolutionFormPage from './pages/council/ResolutionFormPage.jsx';
-import ResolutionPrintPage from './pages/council/ResolutionPrintPage.jsx';
-import StudentsPage from './pages/council/StudentsPage.jsx';
-import StudentLedgerPage from './pages/council/StudentLedgerPage.jsx';
-import ChargesPage from './pages/council/ChargesPage.jsx';
-import UnpaidReportPage from './pages/council/UnpaidReportPage.jsx';
-import EntriesPage from './pages/journal/EntriesPage.jsx';
-import EntryFormPage from './pages/journal/EntryFormPage.jsx';
-import EntryDetailPage from './pages/journal/EntryDetailPage.jsx';
+import ResolutionsPage from './pages/ResolutionsPage.jsx';
+import ResolutionFormPage from './pages/ResolutionFormPage.jsx';
+import ResolutionPrintPage from './pages/ResolutionPrintPage.jsx';
+import StudentsPage from './pages/StudentsPage.jsx';
+import StudentLedgerPage from './pages/StudentLedgerPage.jsx';
+import ChargesPage from './pages/ChargesPage.jsx';
+import UnpaidReportPage from './pages/UnpaidReportPage.jsx';
+import EntriesPage from './pages/EntriesPage.jsx';
+import EntryFormPage from './pages/EntryFormPage.jsx';
+import EntryDetailPage from './pages/EntryDetailPage.jsx';
 
 export default function App() {
   return (

@@ -100,7 +100,7 @@ Without this, Laravel silently ignores `contact_no` when it saves. This protecti
 
 ### Step 3. Validate the value in the controller
 
-Open `backend/app/Http/Controllers/Api/StudentController.php`.
+Open `backend/app/Http/Controllers/StudentController.php`.
 In **both** `store()` and `update()`, add one line to the list of rules:
 
 ```php
@@ -117,7 +117,7 @@ Only values that pass `validate()` end up in `$validated`, which is what gets sa
 
 ### Step 4. Add the input box in the form
 
-Open `frontend/src/pages/council/StudentForm.jsx`.
+Open `frontend/src/pages/StudentForm.jsx`.
 
 First, add `contact_no` to the starting values of the form:
 
@@ -147,7 +147,7 @@ The `name="contact_no"` is important: `handleChange` uses it to know which value
 
 ### Step 5. Show it in the table
 
-Open `frontend/src/pages/council/StudentsPage.jsx`. In the `columns` list, add a column
+Open `frontend/src/pages/StudentsPage.jsx`. In the `columns` list, add a column
 (for example after "Year and section"):
 
 ```jsx
@@ -177,16 +177,16 @@ So you only need React. A new page needs 3 things:
 
 ### Step 1. Make the page component
 
-Make a new file: `frontend/src/pages/journal/TagsPage.jsx`
+Make a new file: `frontend/src/pages/TagsPage.jsx`
 
 ```jsx
 // TagsPage.jsx
 // A list of every tag in the Error Fix Journal, and how many entries use it.
 
 import { useEffect, useState } from 'react';
-import { getTags } from '../../api/journalApi.js';
-import DataTable from '../../components/DataTable.jsx';
-import { getErrorMessage } from '../../utils/errors.js';
+import { getTags } from '../api/journalApi.js';
+import DataTable from '../components/DataTable.jsx';
+import { getErrorMessage } from '../helpers.js';
 
 export default function TagsPage() {
   const [tags, setTags] = useState([]);
@@ -231,7 +231,7 @@ Open `frontend/src/App.jsx`.
 At the top, with the other imports, add:
 
 ```jsx
-import TagsPage from './pages/journal/TagsPage.jsx';
+import TagsPage from './pages/TagsPage.jsx';
 ```
 
 Inside `<Route element={<Layout />}>`, under the journal routes, add:
