@@ -147,7 +147,16 @@ You do not need to create a database by hand like you did with XAMPP.
    /backend/filee
    ```
 
-4. Find **Pre-deploy Command** (in the **Deploy** section; you may need to click **Add pre-deploy step**) and type:
+4. Find **Watch Paths** (in the **Build** section) and add:
+
+   ```
+   /backend/filee/**
+   ```
+
+   This means "rebuild the backend ONLY when a file inside `backend/filee` changes".
+   Without it, a change to the README or the frontend would rebuild the backend too.
+
+5. Find **Pre-deploy Command** (in the **Deploy** section; you may need to click **Add pre-deploy step**) and type:
 
    ```
    php artisan migrate --force && php artisan db:seed --force
@@ -251,6 +260,12 @@ Changes on the website do not change your computer, and the other way around.
    /frontend/filee
    ```
 
+4. Find **Watch Paths** (in the **Build** section) and add:
+
+   ```
+   /frontend/filee/**
+   ```
+
    (No pre-deploy command is needed here.)
 
 ### Step 3. Tell it where the API is
@@ -329,7 +344,15 @@ git commit -m "Say what you changed"
 git push
 ```
 
-Railway sees the new commit and builds both services again (a few minutes). Your live data stays.
+Railway sees the new commit and rebuilds **only the part that changed** (a few minutes), thanks to the Watch Paths:
+
+| You change something in... | What Railway does |
+|----------------------------|-------------------|
+| `backend/filee` | Rebuilds only the backend. |
+| `frontend/filee` | Rebuilds only the frontend. |
+| `README.md` or `docs/` | Nothing. No deploy at all. |
+
+Your live data stays.
 New migrations (for example from [08-how-to-add-a-feature.md](08-how-to-add-a-feature.md)) run by themselves,
 because of the pre-deploy command. The seeder skips itself, because the accounts already exist.
 
@@ -385,8 +408,8 @@ Your code on GitHub and your computer is not touched. You can deploy again any t
 - [ ] App key made with `php artisan key:generate --show`.
 - [ ] Two strong passwords chosen and kept private.
 - [ ] Railway project with a **MySQL** service.
-- [ ] **backend** service: Root Directory `/backend/filee`, pre-deploy command, variables, domain. The address shows "The Workspace API is running".
-- [ ] **frontend** service: Root Directory `/frontend/filee`, `VITE_API_URL`, domain. The address shows the login box.
+- [ ] **backend** service: Root Directory `/backend/filee`, Watch Paths `/backend/filee/**`, pre-deploy command, variables, domain. The address shows "The Workspace API is running".
+- [ ] **frontend** service: Root Directory `/frontend/filee`, Watch Paths `/frontend/filee/**`, `VITE_API_URL`, domain. The address shows the login box.
 - [ ] Logged in with the new officer password. Refreshing `/students` works.
 - [ ] (Optional) `FRONTEND_URL` set on the backend.
 - [ ] You know where to see the cost (**Usage** page) and how to delete the project.

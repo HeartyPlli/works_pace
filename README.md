@@ -149,17 +149,149 @@ Step by step: [docs/09-put-it-on-github.md](docs/09-put-it-on-github.md)
 
 ---
 
-## Putting it online (a website you can visit)
+## Deploy tutorial: from GitHub to a live website (only what is needed)
 
-The project is ready to run on **Railway**, a hosting service that builds it straight from your GitHub repository.
-You make three parts in one Railway project: a **MySQL** database, the **backend** (Laravel API), and the
-**frontend** (React app). After that, every `git push` updates the website by itself.
+This tutorial puts Workspace on the internet, so you can open it from any phone or computer.
+We use **Railway**, a hosting service that builds the app straight from your GitHub repository.
+Only the two `filee` folders are needed for the website. Railway builds nothing else.
 
-- **Cost:** free for the first 30 days (a one-time $5 credit, no credit card), then about $5 per month (Hobby plan).
-- **Safety:** on the live website you choose your own passwords, error details are hidden, and the database is
-  not open to the internet.
+More details and a troubleshooting table: [docs/10-deploy-to-railway.md](docs/10-deploy-to-railway.md).
 
-Step by step: [docs/10-deploy-to-railway.md](docs/10-deploy-to-railway.md)
+### What is needed, and what is not
+
+| Folder or file | Needed for the website? | On GitHub? | Deployed by Railway? |
+|----------------|-------------------------|------------|----------------------|
+| `backend/filee` (Laravel API) | **Yes** | Yes | Yes, as the service `backend` |
+| `frontend/filee` (React app) | **Yes** | Yes | Yes, as the service `frontend` |
+| `README.md`, `docs/`, top `.gitignore` and `.gitattributes` | No, they are instructions and Git settings | Yes, but optional (see Step 1) | No |
+| `.env`, `vendor`, `node_modules`, `*.sql` backups | **Never** | No, blocked by `.gitignore` | No. Railway installs the packages itself, and settings go in Railway's **Variables** |
+
+### Before you start
+
+- **Cost** (checked November 2026, see https://railway.com/pricing): free for the first 30 days
+  (a one-time $5 credit, no credit card), then the Hobby plan, $5 per month.
+- **An app key for the live server.** In a terminal, run:
+
+  ```powershell
+  cd backend\filee
+  php artisan key:generate --show
+  ```
+
+  Copy the whole line it prints (it starts with `base64:`). This does not change your own `.env`.
+- **Two strong passwords**, one for the officer account and one for the viewer account (at least 12 characters).
+
+### Step 1. Push your code to GitHub
+
+In the **top** `workspace` folder (the one with this README), check what Git will upload:
+
+```powershell
+git status
+```
+
+You must NOT see `.env`, `vendor`, `node_modules`, or any `.sql` file. Then upload:
+
+```powershell
+git add .
+git commit -m "Ready to deploy"
+git push
+```
+
+If `git commit` says `nothing to commit`, that is fine. Still run `git push`.
+(First time on GitHub? Follow [docs/09-put-it-on-github.md](docs/09-put-it-on-github.md) first.)
+
+> **Optional: keep ONLY the two `filee` folders on GitHub.**
+> The website works without the README and docs on GitHub. If you want your repository to hold only
+> `backend/filee` and `frontend/filee`, run these in the top `workspace` folder:
+>
+> ```powershell
+> git rm -r --cached README.md docs .gitignore .gitattributes
+> Add-Content .git\info\exclude "README.md"
+> Add-Content .git\info\exclude "docs/"
+> Add-Content .git\info\exclude ".gitignore"
+> Add-Content .git\info\exclude ".gitattributes"
+> git commit -m "Keep only the filee folders on GitHub"
+> git push
+> ```
+>
+> - `git rm --cached` removes the files from GitHub but **keeps them on your computer**.
+> - The `exclude` lines stop `git add .` from adding them again. (This list stays on your computer only.)
+> - Each `filee` folder has its own `.gitignore`, so `.env`, `vendor`, `node_modules`, and `.sql` files stay blocked.
+> - The old versions of the README and docs stay in the repository's history.
+> - Downside: people who visit your GitHub page do not see any instructions.
+> - To undo: delete those four lines from `.git\info\exclude`, then run `git add .`, `git commit -m "Add the guides back"`, and `git push`.
+
+### Step 2. Make a Railway project with a MySQL database
+
+1. Go to https://railway.com and **sign in with GitHub** (the account that has your repository).
+2. Click **New Project**, then **Database**, then **MySQL**. Wait until the **MySQL** box shows that it is running.
+   Keep its name `MySQL` (Step 3 uses it).
+
+### Step 3. Deploy the backend (only `backend/filee`)
+
+1. In the project, click **+ New**, then **GitHub Repo**, and pick your **workspace** repository.
+   (Allow Railway to see that repository if it asks.) The first build may fail. That is normal, we fix it now.
+2. Click the new box and open **Settings**:
+   - **Service name:** `backend`
+   - **Root Directory:** `/backend/filee` (so Railway uses ONLY this folder)
+   - **Watch Paths:** `/backend/filee/**` (so the backend is rebuilt ONLY when this folder changes)
+   - **Pre-deploy Command:** `php artisan migrate --force && php artisan db:seed --force`
+3. Open **Variables**, click **Raw Editor**, paste this, and fill in the 3 marked values:
+
+   ```
+   APP_NAME=Workspace
+   APP_ENV=production
+   APP_DEBUG=false
+   APP_KEY=paste-the-base64-key-here
+   DB_CONNECTION=mysql
+   DB_URL=${{MySQL.MYSQL_URL}}
+   LOG_CHANNEL=stderr
+   OFFICER_PASSWORD=your-strong-officer-password
+   VIEWER_PASSWORD=your-strong-viewer-password
+   ```
+
+   Add `SEED_SAMPLE_DATA=false` too if you want the website to start with no sample data.
+4. Click **Deploy**. When the deployment says **Success**, go to **Settings > Networking** and click **Generate Domain**
+   (if it asks for a port, use the one it suggests).
+5. Open the new address. You should see `{"message":"The Workspace API is running. Open the React app to use it."}`
+
+### Step 4. Deploy the frontend (only `frontend/filee`)
+
+1. Click **+ New**, then **GitHub Repo**, and pick **workspace** again.
+2. In **Settings**:
+   - **Service name:** `frontend`
+   - **Root Directory:** `/frontend/filee`
+   - **Watch Paths:** `/frontend/filee/**`
+3. In **Variables**, add one variable:
+
+   ```
+   VITE_API_URL=https://${{backend.RAILWAY_PUBLIC_DOMAIN}}/api
+   ```
+
+4. Click **Deploy**. When it says **Success**, go to **Settings > Networking** and click **Generate Domain**.
+
+### Step 5. Visit your website
+
+Open the frontend's address (like `https://frontend-production-1234.up.railway.app`). **This is your website.**
+Log in with `officer@example.com` and **your OFFICER_PASSWORD** (not "password"). Share this address with others.
+
+### Updating the website later
+
+Just push to GitHub. Thanks to the Root Directory and Watch Paths, Railway deploys only what changed:
+
+| You change something in... | What Railway does |
+|----------------------------|-------------------|
+| `backend/filee` | Rebuilds only the backend. New migrations run by themselves. Your live data stays. |
+| `frontend/filee` | Rebuilds only the frontend. |
+| `README.md` or `docs/` | Nothing. No deploy at all. |
+
+### If something goes wrong
+
+- Open the service, then **Deployments**, then the newest deployment, and read **Build Logs** and **Deploy Logs**.
+- "Set OFFICER_PASSWORD and VIEWER_PASSWORD" in the logs: add both variables to the **backend** (Step 3).
+- The website says "Cannot reach the server": open the backend's address first. Then check `VITE_API_URL` (Step 4) and deploy the frontend again.
+- More fixes: [docs/10-deploy-to-railway.md, Part 8](docs/10-deploy-to-railway.md#part-8-troubleshooting).
+
+**To stop paying:** open the project's **Settings** and delete the project (this also deletes the live database).
 
 ---
 
