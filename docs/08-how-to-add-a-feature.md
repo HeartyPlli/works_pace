@@ -31,7 +31,7 @@ A new field has to travel through 5 places. Remember this list. It is the same f
 
 ### Step 1. Make a migration
 
-In the `backend` folder, run:
+In the `backend/filee` folder, run:
 
 ```powershell
 php artisan make:migration add_contact_no_to_students_table
@@ -40,7 +40,7 @@ php artisan make:migration add_contact_no_to_students_table
 **When it works:**
 
 ```
-   INFO  Migration [C:\...\workspace\backend\database\migrations\2026_11_24_101500_add_contact_no_to_students_table.php] created successfully.
+   INFO  Migration [C:\...\workspace\backend\filee\database\migrations\2026_11_24_101500_add_contact_no_to_students_table.php] created successfully.
 ```
 
 (Your date and time numbers will be different. That is normal.)
@@ -48,7 +48,7 @@ php artisan make:migration add_contact_no_to_students_table
 Laravel reads the name `add_..._to_students_table` and guesses that you want to change the `students` table,
 so the new file already says `Schema::table('students', ...)` with an empty spot marked `//`.
 
-Open the new file in `backend/database/migrations/` (the newest one). Change the two methods so they look like this:
+Open the new file in `backend/filee/database/migrations/` (the newest one). Change the two methods so they look like this:
 
 ```php
 public function up(): void
@@ -83,7 +83,7 @@ You should see your new migration with `DONE`. Your old data is still there. The
 
 ### Step 2. Allow the column in the model
 
-Open `backend/app/Models/Student.php` and add `'contact_no'` to `$fillable`:
+Open `backend/filee/app/Models/Student.php` and add `'contact_no'` to `$fillable`:
 
 ```php
 protected $fillable = [
@@ -100,7 +100,7 @@ Without this, Laravel silently ignores `contact_no` when it saves. This protecti
 
 ### Step 3. Validate the value in the controller
 
-Open `backend/app/Http/Controllers/StudentController.php`.
+Open `backend/filee/app/Http/Controllers/StudentController.php`.
 In **both** `store()` and `update()`, add one line to the list of rules:
 
 ```php
@@ -117,7 +117,7 @@ Only values that pass `validate()` end up in `$validated`, which is what gets sa
 
 ### Step 4. Add the input box in the form
 
-Open `frontend/src/pages/StudentForm.jsx`.
+Open `frontend/filee/src/pages/StudentForm.jsx`.
 
 First, add `contact_no` to the starting values of the form:
 
@@ -147,7 +147,7 @@ The `name="contact_no"` is important: `handleChange` uses it to know which value
 
 ### Step 5. Show it in the table
 
-Open `frontend/src/pages/StudentsPage.jsx`. In the `columns` list, add a column
+Open `frontend/filee/src/pages/StudentsPage.jsx`. In the `columns` list, add a column
 (for example after "Year and section"):
 
 ```jsx
@@ -168,7 +168,7 @@ Open `frontend/src/pages/StudentsPage.jsx`. In the `columns` list, add a column
 
 ## Part 2. Add a new page: Tags
 
-The API already has `GET /api/tags`, and `frontend/src/api/journalApi.js` already has `getTags()`.
+The API already has `GET /api/tags`, and `frontend/filee/src/api/journalApi.js` already has `getTags()`.
 So you only need React. A new page needs 3 things:
 
 1. **A page component** (a new `.jsx` file).
@@ -177,7 +177,7 @@ So you only need React. A new page needs 3 things:
 
 ### Step 1. Make the page component
 
-Make a new file: `frontend/src/pages/TagsPage.jsx`
+Make a new file: `frontend/filee/src/pages/TagsPage.jsx`
 
 ```jsx
 // TagsPage.jsx
@@ -226,7 +226,7 @@ export default function TagsPage() {
 
 ### Step 2. Add the route
 
-Open `frontend/src/App.jsx`.
+Open `frontend/filee/src/App.jsx`.
 
 At the top, with the other imports, add:
 
@@ -244,7 +244,7 @@ Because it is inside `ProtectedRoute` and `Layout`, the page needs a login and g
 
 ### Step 3. Add the link in the sidebar
 
-Open `frontend/src/components/Sidebar.jsx`. Under the "Error Fix Journal" link, add:
+Open `frontend/filee/src/components/Sidebar.jsx`. Under the "Error Fix Journal" link, add:
 
 ```jsx
 <NavLink to="/tags" className="sidebar-link">

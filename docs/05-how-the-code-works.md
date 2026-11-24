@@ -48,6 +48,9 @@ Then it follows ONE full example, clicking **Login**, from the button all the wa
 
 ## The backend folder (Laravel)
 
+All the backend files are in `backend/filee`. The paths below start from there
+(so `routes/api.php` means `backend/filee/routes/api.php`).
+
 Only the files we wrote or changed are listed. The rest is normal Laravel.
 
 | Path | What it is |
@@ -94,6 +97,9 @@ users ──< error_entries >──< tags   (through the error_entry_tag table)
 
 ## The frontend folder (React)
 
+All the frontend files are in `frontend/filee`. The paths below start from there
+(so `src/App.jsx` means `frontend/filee/src/App.jsx`).
+
 | Path | What it is |
 |------|------------|
 | `src/main.jsx` | The starting point. It shows `App` inside `index.html`. |
@@ -137,7 +143,7 @@ async function loadStudents() {
 
 Let us follow what happens when you type `officer@example.com` and `password` and click **Login**.
 
-### Step 1. The form (React): `frontend/src/pages/LoginPage.jsx`
+### Step 1. The form (React): `frontend/filee/src/pages/LoginPage.jsx`
 
 Each input box is connected to a piece of state (`email` and `password`).
 When you click **Login**, the form runs `handleSubmit`:
@@ -159,7 +165,7 @@ async function handleSubmit(event) {
 
 `login` comes from `useAuth()`, so the next step is in AuthContext.
 
-### Step 2. The login function (React): `frontend/src/components/AuthContext.jsx`
+### Step 2. The login function (React): `frontend/filee/src/components/AuthContext.jsx`
 
 ```jsx
 async function login(email, password) {
@@ -169,7 +175,7 @@ async function login(email, password) {
 }
 ```
 
-### Step 3. The API function (React): `frontend/src/api/authApi.js`
+### Step 3. The API function (React): `frontend/filee/src/api/authApi.js`
 
 ```js
 export async function loginRequest(email, password) {
@@ -180,7 +186,7 @@ export async function loginRequest(email, password) {
 
 `apiClient.post('/login', ...)` means "send a POST request to `/login` with this data as JSON".
 
-### Step 4. axios sends the request: `frontend/src/api/client.js`
+### Step 4. axios sends the request: `frontend/filee/src/api/client.js`
 
 ```js
 const apiClient = axios.create({
@@ -189,13 +195,13 @@ const apiClient = axios.create({
 });
 ```
 
-- `baseURL` comes from `frontend/.env`. So `/login` becomes `http://127.0.0.1:8000/api/login`.
+- `baseURL` comes from `frontend/filee/.env`. So `/login` becomes `http://127.0.0.1:8000/api/login`.
 - `Accept: application/json` tells Laravel "please answer in JSON".
 - Before every request, an "interceptor" adds the saved token as `Authorization: Bearer <token>`.
   At login we do not have a token yet, so nothing is added.
 
 Because React (port 5173) calls a different address (port 8000), the browser first asks Laravel
-"may this website call you?" This is **CORS**. Laravel answers "yes" using `backend/config/cors.php`.
+"may this website call you?" This is **CORS**. Laravel answers "yes" using `backend/filee/config/cors.php`.
 
 The request that leaves the browser looks like this:
 
@@ -207,7 +213,7 @@ Content-Type: application/json
 {"email":"officer@example.com","password":"password"}
 ```
 
-### Step 5. Laravel finds the route: `backend/routes/api.php`
+### Step 5. Laravel finds the route: `backend/filee/routes/api.php`
 
 ```php
 Route::post('/login', [AuthController::class, 'login']);
@@ -217,7 +223,7 @@ This line means: "a POST to `/api/login` is answered by the `login` method of `A
 Laravel adds `/api` in front of every route in this file.
 This route is outside the `auth:sanctum` group, so no token is needed.
 
-### Step 6. The controller checks the password: `backend/app/Http/Controllers/AuthController.php`
+### Step 6. The controller checks the password: `backend/filee/app/Http/Controllers/AuthController.php`
 
 ```php
 public function login(Request $request)

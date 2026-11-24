@@ -38,7 +38,7 @@ You can always see the current cost on the **Usage** page of your Railway accoun
 - **Build:** Railway turns your code into something that can run (it runs `composer install` or `npm run build` for you).
 - **Variables (Railway):** the settings of a service. They do the same job as your `.env` file, but on the server.
 - **Domain:** the web address of a service, like `something.up.railway.app`.
-- **Root Directory:** which folder of your GitHub repository a service uses (`/backend` or `/frontend`).
+- **Root Directory:** which folder of your GitHub repository a service uses (`/backend/filee` or `/frontend/filee`).
 - **Pre-deploy command:** a command Railway runs before it starts a new version of your app (we use it to make the tables).
 - **Production:** the live version that real people use. On your computer you have the **local** version.
 - **Logs:** the text a server prints while it works. Errors show up here.
@@ -78,8 +78,8 @@ You need:
 
 - [ ] Your project on GitHub ([09-put-it-on-github.md](09-put-it-on-github.md)).
 - [ ] Your **latest** code pushed. This tutorial needs the newest versions of these files:
-      `backend/database/seeders/UserSeeder.php`, `backend/database/seeders/DatabaseSeeder.php`,
-      `backend/config/cors.php`, and `backend/composer.json`. To be sure, run in the top `workspace` folder:
+      `backend/filee/database/seeders/UserSeeder.php`, `backend/filee/database/seeders/DatabaseSeeder.php`,
+      `backend/filee/config/cors.php`, and `backend/filee/composer.json`. To be sure, run in the top `workspace` folder:
 
   ```powershell
   git add .
@@ -92,7 +92,7 @@ You need:
 
 - [ ] Two **strong passwords** written down somewhere safe: one for the officer account and one for the viewer account.
       (At least 12 characters. Do not use "password".)
-- [ ] An **app key** for the live server. In the `backend` folder, run:
+- [ ] An **app key** for the live server. In the `backend/filee` folder, run:
 
   ```powershell
   php artisan key:generate --show
@@ -135,16 +135,16 @@ You do not need to create a database by hand like you did with XAMPP.
 3. Pick your **workspace** repository from the list.
 4. A new box appears and Railway starts to build it right away.
    **This first build will probably fail.** That is normal: Railway is looking at the top folder, but the
-   Laravel app is inside `backend`. We fix that in the next step.
+   Laravel app is inside `backend/filee`. We fix that in the next step.
 
-### Step 2. Name it and point it to the backend folder
+### Step 2. Name it and point it to the backend/filee folder
 
 1. Click the new box, then open the **Settings** tab.
 2. At the top, change the service name to **backend** (all small letters). Part 5 uses this name.
 3. Find **Root Directory** (in the **Source** section) and type:
 
    ```
-   /backend
+   /backend/filee
    ```
 
 4. Find **Pre-deploy Command** (in the **Deploy** section; you may need to click **Add pre-deploy step**) and type:
@@ -238,17 +238,17 @@ Changes on the website do not change your computer, and the other way around.
 ### Step 1. Add the same repository again
 
 1. On the project page, click **+ New**, then **GitHub Repo**, and pick **workspace** again.
-   (Yes, the same repository. This time we use its `frontend` folder.)
+   (Yes, the same repository. This time we use its `frontend/filee` folder.)
 2. Again, the first build may fail. That is fine.
 
-### Step 2. Name it and point it to the frontend folder
+### Step 2. Name it and point it to the frontend/filee folder
 
 1. Click the new box, open **Settings**.
 2. Change the service name to **frontend**.
 3. Set **Root Directory** to:
 
    ```
-   /frontend
+   /frontend/filee
    ```
 
    (No pre-deploy command is needed here.)
@@ -346,7 +346,7 @@ For the website, also press **F12** in the browser and look at the **Console** t
 
 | What you see | Why | Fix |
 |--------------|-----|-----|
-| The build fails right after you add the repo | The Root Directory is not set yet | Set it to `/backend` or `/frontend` (Part 3 Step 2, Part 5 Step 2), then deploy. |
+| The build fails right after you add the repo | The Root Directory is not set yet | Set it to `/backend/filee` or `/frontend/filee` (Part 3 Step 2, Part 5 Step 2), then deploy. |
 | Pre-deploy fails with `Set OFFICER_PASSWORD and VIEWER_PASSWORD before seeding a live website` | The password variables are missing | Add both variables to the **backend** (Part 3 Step 3), then deploy. |
 | `could not find driver` in the logs | PHP's MySQL driver is missing | Add the backend variable `RAILPACK_PHP_EXTENSIONS=pdo_mysql`, then deploy. |
 | `SQLSTATE[HY000] [2002]` or `getaddrinfo failed` | The backend cannot find the database | Check that `DB_URL` is exactly `${{MySQL.MYSQL_URL}}` and that the database box is named `MySQL` and is running. |
@@ -385,8 +385,8 @@ Your code on GitHub and your computer is not touched. You can deploy again any t
 - [ ] App key made with `php artisan key:generate --show`.
 - [ ] Two strong passwords chosen and kept private.
 - [ ] Railway project with a **MySQL** service.
-- [ ] **backend** service: Root Directory `/backend`, pre-deploy command, variables, domain. The address shows "The Workspace API is running".
-- [ ] **frontend** service: Root Directory `/frontend`, `VITE_API_URL`, domain. The address shows the login box.
+- [ ] **backend** service: Root Directory `/backend/filee`, pre-deploy command, variables, domain. The address shows "The Workspace API is running".
+- [ ] **frontend** service: Root Directory `/frontend/filee`, `VITE_API_URL`, domain. The address shows the login box.
 - [ ] Logged in with the new officer password. Refreshing `/students` works.
 - [ ] (Optional) `FRONTEND_URL` set on the backend.
 - [ ] You know where to see the cost (**Usage** page) and how to delete the project.

@@ -212,7 +212,7 @@ Homebrew's MySQL user is `root` with an empty password.
    EXIT;
    ```
 
-   Later, put this user and password in `backend/.env`.
+   Later, put this user and password in `backend/filee/.env`.
 5. Check: `php -v`, `composer --version`, `node -v`, `npm -v`, `mysql --version`, `git --version`
 
 ---

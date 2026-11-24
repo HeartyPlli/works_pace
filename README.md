@@ -64,9 +64,19 @@ This project is made for learning. The code is kept simple on purpose, and every
 workspace/
   README.md        <- this file
   docs/            <- step by step guides (start here if you are new)
-  backend/         <- the Laravel API (PHP). It talks to the database.
-  frontend/        <- the React app (JavaScript). This is what you see in the browser.
+  backend/
+    filee/         <- ALL the files of the Laravel API (PHP). It talks to the database.
+  frontend/
+    filee/         <- ALL the files of the React app (JavaScript). This is what you see in the browser.
 ```
+
+Every file the backend needs is inside `backend/filee`, and every file the frontend needs is inside `frontend/filee`.
+So you always open a terminal **inside a `filee` folder** to run commands (`cd backend\filee` or `cd frontend\filee`).
+
+On your computer, each `filee` folder also holds things that are NOT uploaded to GitHub
+(their `.gitignore` file takes care of that): your `.env` file with passwords, and the downloaded packages
+(`vendor` for the backend, `node_modules` for the frontend). They are needed to run the app on your computer,
+and anyone can make them again with `composer install`, `npm install`, and `.env.example`.
 
 - The **backend** is the "kitchen". It keeps the data in a MySQL database and answers requests.
 - The **frontend** is the "dining room". It shows pages, and asks the backend for data.
@@ -75,7 +85,7 @@ workspace/
 **The folders you will work in** (everything you write is here):
 
 ```
-backend/
+backend/filee/
   app/Http/Controllers/   <- the code that answers each request (one file per topic)
   app/Http/Middleware/    <- OfficerOnly.php, the guard that lets only officers change data
   app/Models/             <- one file for each database table
@@ -83,7 +93,7 @@ backend/
   database/seeders/       <- the files that fill the tables with starting data
   routes/api.php          <- the list of API addresses
 
-frontend/src/
+frontend/filee/src/
   pages/                  <- one file for each screen (and the small forms those screens use)
   components/             <- parts many pages share: sidebar, top bar, table, pop up, login state
   api/                    <- the functions that call the backend
@@ -93,10 +103,10 @@ frontend/src/
 
 **The folders you can ignore** (Laravel, Node.js, or Git make and use them; you rarely open them):
 
-- `backend/bootstrap`, `backend/config`, `backend/public`, `backend/storage`
+- `backend/filee/bootstrap`, `backend/filee/config`, `backend/filee/public`, `backend/filee/storage`
   (except `storage/logs/laravel.log`, where Laravel writes its errors)
-- `backend/vendor` and `frontend/node_modules` : downloaded packages. Never edit these.
-- `backend/app/Providers` : Laravel's start up file. This app does not change it.
+- `backend/filee/vendor` and `frontend/filee/node_modules` : downloaded packages. Never edit these.
+- `backend/filee/app/Providers` : Laravel's start up file. This app does not change it.
 
 A longer tour is in [docs/05-how-the-code-works.md](docs/05-how-the-code-works.md).
 
@@ -109,13 +119,13 @@ Do these in order. Each step links to a guide with every detail.
 1. Install PHP 8.2 or newer, Composer, Node.js, MySQL, VS Code, and Git.
    Guide: [docs/01-install-tools.md](docs/01-install-tools.md)
 2. Start MySQL (in XAMPP, click **Start** next to MySQL).
-3. Open a terminal in the `backend` folder and run `composer install`.
+3. Open a terminal in the `backend/filee` folder and run `composer install`.
    Guide: [docs/02-setup-backend.md](docs/02-setup-backend.md)
-4. Copy `backend/.env.example` to `backend/.env`, then run `php artisan key:generate`.
+4. Copy `backend/filee/.env.example` to `backend/filee/.env`, then run `php artisan key:generate`.
 5. Create an empty database named `workspace` (with phpMyAdmin or the command line).
-6. Check the database values in `backend/.env`, then run `php artisan migrate --seed`.
+6. Check the database values in `backend/filee/.env`, then run `php artisan migrate --seed`.
 7. Start the API with `php artisan serve` and leave that terminal open.
-8. Open a second terminal in the `frontend` folder, run `npm install`, and copy `.env.example` to `.env`.
+8. Open a second terminal in the `frontend/filee` folder, run `npm install`, and copy `.env.example` to `.env`.
    Guide: [docs/03-setup-frontend.md](docs/03-setup-frontend.md)
 9. Run `npm run dev` and open http://localhost:5173 in your browser.
    Guide: [docs/04-run-the-app.md](docs/04-run-the-app.md)
@@ -183,13 +193,13 @@ We had to choose some things. Here they are, so you know what to expect.
 | React | React 19 with Vite 8 | Vite 8 needs Node.js 20.19 or newer (or 22.12 or newer). |
 | Pages | react-router-dom 7 | One address per page, like `/students`. |
 | API calls | axios 1 | Easy to add the login token to every request. |
-| Styles | One plain CSS file: `frontend/src/index.css` | No Tailwind or UI library, so nothing extra to learn. |
+| Styles | One plain CSS file: `frontend/filee/src/index.css` | No Tailwind or UI library, so nothing extra to learn. |
 | API address | http://127.0.0.1:8000/api | Laravel's normal address. |
 | React address | http://localhost:5173 | Vite's normal address. |
 | Money | Shown as `PHP 1,250.00` | Plain text, works in every font. |
 | Journal entries | Every logged in user can read every entry | Viewers can read, but only officers can add or change. |
 | Deleting a student | Also deletes their charges and payments | The app asks "Are you sure?" first. |
 | Payments | Cannot be bigger than the balance | Stops mistakes like typing 1500 instead of 150. |
-| CORS | All origins allowed (`*`), unless `FRONTEND_URL` is set (`backend/config/cors.php`) | Fine with token login while learning. On a live website, set `FRONTEND_URL`. |
+| CORS | All origins allowed (`*`), unless `FRONTEND_URL` is set (`backend/filee/config/cors.php`) | Fine with token login while learning. On a live website, set `FRONTEND_URL`. |
 | Seeding | Safe to run again: it skips itself when the accounts exist | A live website runs it on every deploy without adding things twice. |
 | Hosting | Railway (MySQL + backend + frontend from one GitHub repo) | Easiest path from `git push` to a live website. Checked November 2026. |

@@ -12,8 +12,8 @@ In this guide you download its packages, connect it to a database, make the tabl
 - **API:** "Application Programming Interface". Here it means a list of web addresses (like `/api/students`)
   that send and receive data instead of web pages. React calls these addresses to get data.
 - **Laravel:** a PHP "framework", a big set of ready made code for building web apps.
-- **Composer:** the tool that downloads PHP packages. The list of packages is in `backend/composer.json`.
-  The downloaded packages go into the `backend/vendor` folder.
+- **Composer:** the tool that downloads PHP packages. The list of packages is in `backend/filee/composer.json`.
+  The downloaded packages go into the `backend/filee/vendor` folder.
 - **Database:** a program that stores data in tables (like spreadsheets). We use **MySQL**.
 - **.env file:** a small text file with settings for YOUR computer (database name, password, and so on).
   Every computer has its own `.env`, so it is not shared or saved in Git.
@@ -33,19 +33,19 @@ In this guide you download its packages, connect it to a database, make the tabl
 
 ---
 
-## Step 1. Open a terminal in the backend folder
+## Step 1. Open a terminal in the backend/filee folder
 
 1. Open the `workspace` folder in VS Code (**File > Open Folder...**).
 2. Open the terminal (**Terminal > New Terminal**, or **Ctrl + `**).
-3. Go into the backend folder. Type this and press **Enter**:
+3. Go into the `backend/filee` folder (it holds all the Laravel files). Type this and press **Enter**:
 
    ```powershell
-   cd backend
+   cd backend\filee
    ```
 
-   (`cd` means "change directory", which means "go into this folder".)
+   (`cd` means "change directory", which means "go into this folder". `backend\filee` means "the `filee` folder inside `backend`".)
 
-4. The line before your cursor now ends with `workspace\backend>`. All the commands in this guide are typed here.
+4. The line before your cursor now ends with `workspace\backend\filee>`. All the commands in this guide are typed here.
 
 ---
 
@@ -68,7 +68,7 @@ This can take a few minutes the first time. Many lines scroll by.
   ...
 ```
 
-A new folder `backend/vendor` now exists.
+A new folder `backend/filee/vendor` now exists.
 
 **If it does not work:**
 
@@ -158,7 +158,7 @@ Choose **one** of these two ways.
 
 ## Step 6. Check the database values in .env
 
-Open `backend/.env` in VS Code and find these lines:
+Open `backend/filee/.env` in VS Code and find these lines:
 
 ```
 DB_CONNECTION=mysql
@@ -245,7 +245,7 @@ You now have:
 > **Running `db:seed` again is safe.** When the accounts already exist, it only prints
 > `The database already has accounts, so seeding is skipped.` and adds nothing.
 >
-> **Optional:** to choose your own passwords instead of `password`, open `backend/.env` BEFORE you seed,
+> **Optional:** to choose your own passwords instead of `password`, open `backend/filee/.env` BEFORE you seed,
 > remove the `#` in front of `OFFICER_PASSWORD` and `VIEWER_PASSWORD`, and type your passwords there.
 > To start with no sample data at all, also remove the `#` in front of `SEED_SAMPLE_DATA=false`.
 

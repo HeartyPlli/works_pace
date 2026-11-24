@@ -43,16 +43,16 @@ and for anyone who downloads it. It also explains what happens to the **database
 
 | Uploaded to GitHub | NOT uploaded | Why not |
 |--------------------|--------------|---------|
-| All the code in `backend/` and `frontend/` | `backend/.env` and `frontend/.env` | They have your passwords and secret key. |
-| `README.md` and `docs/` | `backend/vendor/` | Composer downloads it again with `composer install`. |
-| `.env.example` files (no secrets inside) | `frontend/node_modules/` | npm downloads it again with `npm install`. |
-| `composer.lock` and `package-lock.json` | `frontend/dist/` | `npm run build` makes it again. |
-| Migrations and seeders (the database recipe) | `backend/storage/logs/*.log` | Log files are only for your computer. |
+| All the code in `backend/` and `frontend/` | `backend/filee/.env` and `frontend/filee/.env` | They have your passwords and secret key. |
+| `README.md` and `docs/` | `backend/filee/vendor/` | Composer downloads it again with `composer install`. |
+| `.env.example` files (no secrets inside) | `frontend/filee/node_modules/` | npm downloads it again with `npm install`. |
+| `composer.lock` and `package-lock.json` | `frontend/filee/dist/` | `npm run build` makes it again. |
+| Migrations and seeders (the database recipe) | `backend/filee/storage/logs/*.log` | Log files are only for your computer. |
 | | Any `*.sql` file | Database backups can hold real student data. |
 | | The MySQL database itself | It lives inside MySQL, not in the project folder. |
 
 This is already set up for you in three `.gitignore` files: one in the top `workspace` folder,
-one in `backend/`, and one in `frontend/`.
+one in `backend/filee/`, and one in `frontend/filee/`.
 
 The lock files (`composer.lock` and `package-lock.json`) ARE uploaded on purpose.
 They make sure that everyone who downloads the project gets the exact same package versions.
@@ -79,8 +79,8 @@ They make sure that everyone who downloads the project gets the exact same packa
 ### Step 1. Open a terminal in the TOP folder
 
 Open the `workspace` folder in VS Code and open a terminal. Make sure you are in the **top** folder
-(the one with `README.md`, `backend`, and `frontend`), not inside `backend` or `frontend`.
-If you are inside one of them, type `cd ..` to go up one folder.
+(the one with `README.md`, `backend`, and `frontend`), not inside `backend`, `frontend`, or a `filee` folder.
+If you are inside a `filee` folder, type `cd ..\..` to go up two folders.
 
 ### Step 2. Tell Git your name (one time per computer)
 
@@ -118,8 +118,8 @@ git status
 
 Now the files are green. **Look through the list.** You must **NOT** see any of these:
 
-- `backend/.env` or `frontend/.env` (only `.env.example` is OK)
-- anything inside `backend/vendor/` or `frontend/node_modules/`
+- `backend/filee/.env` or `frontend/filee/.env` (only `.env.example` is OK)
+- anything inside `backend/filee/vendor/` or `frontend/filee/node_modules/`
 - any file that ends in `.sql`
 
 If you see one of them, **stop**. Run `git reset` to undo `git add .`, and check the `.gitignore` files.
@@ -185,13 +185,13 @@ This is how a teacher, a classmate, or you on another computer gets the project 
 
    | Folder | Commands |
    |--------|----------|
-   | `backend` | `composer install`, copy `.env.example` to `.env`, `php artisan key:generate`, create the database, `php artisan migrate --seed`, `php artisan serve` |
-   | `frontend` | `npm install`, copy `.env.example` to `.env`, `npm run dev` |
+   | `backend/filee` | `composer install`, copy `.env.example` to `.env`, `php artisan key:generate`, create the database, `php artisan migrate --seed`, `php artisan serve` |
+   | `frontend/filee` | `npm install`, copy `.env.example` to `.env`, `npm run dev` |
 
 4. Log in with `officer@example.com` / `password`. You see the sample data.
 
 > **Testing on the SAME computer?** Your real project already uses the database `workspace`.
-> So in the copy, give it its own database: in `workspace-copy/backend/.env` set
+> So in the copy, give it its own database: in `workspace-copy/backend/filee/.env` set
 > `DB_DATABASE=workspace_test`, and create a database with that name.
 > Also stop your other servers first, so ports 8000 and 5173 are free.
 > When you are done, you can delete the `workspace-copy` folder and the `workspace_test` database.
@@ -208,7 +208,7 @@ Use the migrations, seeders, and backups described below.
 
 ### Sample data and real data are different
 
-- **Sample data** comes from the seeders (`backend/database/seeders/`). It is fake, so it is fine on GitHub.
+- **Sample data** comes from the seeders (`backend/filee/database/seeders/`). It is fake, so it is fine on GitHub.
   Everyone who downloads the project gets it with `php artisan migrate --seed`.
 - **Real data** is what you type into the app: real students, real payments, your own journal entries.
   It stays in YOUR MySQL only.

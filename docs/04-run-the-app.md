@@ -14,7 +14,7 @@ You need **three things running**: MySQL, the Laravel API, and the React app.
 2. **Terminal 1, start the API:**
 
    ```powershell
-   cd backend
+   cd backend\filee
    php artisan serve
    ```
 
@@ -23,7 +23,7 @@ You need **three things running**: MySQL, the Laravel API, and the React app.
 3. **Terminal 2, start the React app:**
 
    ```powershell
-   cd frontend
+   cd frontend\filee
    npm run dev
    ```
 

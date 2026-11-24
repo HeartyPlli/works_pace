@@ -11,7 +11,7 @@ and it runs with a tool called **Vite**.
 
 - **React:** a JavaScript library for building pages out of small parts called **components**.
 - **npm:** "Node Package Manager". It downloads JavaScript packages. It comes with Node.js.
-  The list of packages is in `frontend/package.json`. They are downloaded into `frontend/node_modules`.
+  The list of packages is in `frontend/filee/package.json`. They are downloaded into `frontend/filee/node_modules`.
 - **Vite:** a tool that runs the React app while you work on it. When you save a file, the page updates by itself.
 - **Dev server:** "development server". A small server that Vite runs on your computer while you build the app.
 - **Environment variable:** a setting that lives outside the code, in a `.env` file.
@@ -26,20 +26,20 @@ and it runs with a tool called **Vite**.
 
 ---
 
-## Step 1. Open a SECOND terminal in the frontend folder
+## Step 1. Open a SECOND terminal in the frontend/filee folder
 
 Keep the first terminal (the one running `php artisan serve`) open. You need a new one.
 
 1. In VS Code, click the **+** button in the terminal area (or **Terminal > New Terminal**).
-2. Go into the frontend folder:
+2. Go into the `frontend/filee` folder (it holds all the React files):
 
    ```powershell
-   cd frontend
+   cd frontend\filee
    ```
 
-   If the new terminal opened inside `backend`, go up one folder first: `cd ..\frontend`
+   If the new terminal opened inside `backend\filee`, go up two folders and over to the frontend: `cd ..\..\frontend\filee`
 
-3. The line before your cursor now ends with `workspace\frontend>`.
+3. The line before your cursor now ends with `workspace\frontend\filee>`.
 
 ---
 
@@ -60,7 +60,7 @@ added 50 packages, and audited 51 packages in 17s
 found 0 vulnerabilities
 ```
 
-A new folder `frontend/node_modules` now exists.
+A new folder `frontend/filee/node_modules` now exists.
 
 **If it does not work:**
 
@@ -86,7 +86,7 @@ Copy-Item .env.example .env
 cp .env.example .env
 ```
 
-Open `frontend/.env`. It has one setting:
+Open `frontend/filee/.env`. It has one setting:
 
 ```
 VITE_API_URL=http://127.0.0.1:8000/api
@@ -134,7 +134,7 @@ You now have two terminals running:
 
 | Terminal | Folder | Command | Address |
 |----------|--------|---------|---------|
-| 1 | `backend` | `php artisan serve` | http://127.0.0.1:8000 |
-| 2 | `frontend` | `npm run dev` | http://localhost:5173 |
+| 1 | `backend/filee` | `php artisan serve` | http://127.0.0.1:8000 |
+| 2 | `frontend/filee` | `npm run dev` | http://localhost:5173 |
 
 Go to [04. Run the app](04-run-the-app.md) to log in and look around.

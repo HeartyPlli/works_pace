@@ -23,32 +23,32 @@ Guide: [01-install-tools.md](01-install-tools.md)
 
 ## B. Set up the backend (one time per computer)
 
-Guide: [02-setup-backend.md](02-setup-backend.md). Type these commands in the `backend` folder.
+Guide: [02-setup-backend.md](02-setup-backend.md). Type these commands in the `backend/filee` folder.
 
 - [ ] Start MySQL (XAMPP Control Panel: click **Start** next to MySQL).
 - [ ] Run `composer install`
 - [ ] Copy `.env.example` to `.env` (`Copy-Item .env.example .env`)
 - [ ] Run `php artisan key:generate`
 - [ ] Create an empty database named `workspace` (phpMyAdmin or the command line).
-- [ ] Check `DB_DATABASE`, `DB_USERNAME`, and `DB_PASSWORD` in `backend/.env`.
+- [ ] Check `DB_DATABASE`, `DB_USERNAME`, and `DB_PASSWORD` in `backend/filee/.env`.
 - [ ] Run `php artisan migrate`
 - [ ] Run `php artisan db:seed`
 
 ## C. Set up the frontend (one time per computer)
 
-Guide: [03-setup-frontend.md](03-setup-frontend.md). Type these commands in the `frontend` folder.
+Guide: [03-setup-frontend.md](03-setup-frontend.md). Type these commands in the `frontend/filee` folder.
 
 - [ ] Run `npm install`
 - [ ] Copy `.env.example` to `.env` (`Copy-Item .env.example .env`)
-- [ ] Check `VITE_API_URL` in `frontend/.env` (normally `http://127.0.0.1:8000/api`).
+- [ ] Check `VITE_API_URL` in `frontend/filee/.env` (normally `http://127.0.0.1:8000/api`).
 
 ## D. Every time you use the app
 
 Guide: [04-run-the-app.md](04-run-the-app.md)
 
 - [ ] Start MySQL.
-- [ ] Terminal 1, in `backend`: `php artisan serve`
-- [ ] Terminal 2, in `frontend`: `npm run dev`
+- [ ] Terminal 1, in `backend/filee`: `php artisan serve`
+- [ ] Terminal 2, in `frontend/filee`: `npm run dev`
 - [ ] Open http://localhost:5173 and log in.
 
 ## E. Change the default passwords (before real people use the app)
@@ -57,7 +57,7 @@ Everybody who has seen this project knows that both accounts use the password `p
 The app has no "change password" page, so use **Tinker**. Tinker is a Laravel tool where you can type PHP code
 and run it right away.
 
-- [ ] **Step 1.** In the `backend` folder, start Tinker:
+- [ ] **Step 1.** In the `backend/filee` folder, start Tinker:
 
   ```powershell
   php artisan tinker
@@ -92,7 +92,7 @@ and run it right away.
 - [ ] **Step 6.** Log out of the app and log in with the new password to check it.
 
 > Another way: before you run `php artisan db:seed` the first time, set `OFFICER_PASSWORD` and
-> `VIEWER_PASSWORD` in `backend/.env` (remove the `#` in front of them). The seeder uses them instead of `password`.
+> `VIEWER_PASSWORD` in `backend/filee/.env` (remove the `#` in front of them). The seeder uses them instead of `password`.
 > On a live website this is required: see [10-deploy-to-railway.md](10-deploy-to-railway.md).
 
 ## F. Before you upload to GitHub

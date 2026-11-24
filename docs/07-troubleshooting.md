@@ -10,7 +10,7 @@ Find your error message below (tip: press **Ctrl + F** and type a word from the 
 ## First: where do I see errors?
 
 - **Terminal 1 (`php artisan serve`)** shows each API request.
-- **Laravel's log file:** `backend/storage/logs/laravel.log`. Open it and scroll to the **bottom** for the newest error.
+- **Laravel's log file:** `backend/filee/storage/logs/laravel.log`. Open it and scroll to the **bottom** for the newest error.
 - **The browser console:** in the browser press **F12**, then click the **Console** tab. Red lines are errors.
 - **The browser Network tab:** press **F12**, click **Network**, then do the action again.
   Click the red request and look at **Response** to see what the API said.
@@ -96,7 +96,7 @@ or to nothing, and you get strange errors.
 2. Or close VS Code completely and open it again. Still busy? Restart the computer.
 3. Then stop your new server (**Ctrl + C**) and start it again. It should say port 8000 (or 5173).
 4. If you really want another port for Laravel, choose it yourself: `php artisan serve --port=8001`.
-   Then change `frontend/.env` to `VITE_API_URL=http://127.0.0.1:8001/api` and restart `npm run dev`.
+   Then change `frontend/filee/.env` to `VITE_API_URL=http://127.0.0.1:8001/api` and restart `npm run dev`.
 
 ---
 
@@ -128,7 +128,7 @@ SQLSTATE[HY000] [1049] Unknown database 'workspace'
 
 **Fix:**
 
-- **Access denied:** the user or password in `backend/.env` is wrong. With XAMPP, use `DB_USERNAME=root` and an empty `DB_PASSWORD=`.
+- **Access denied:** the user or password in `backend/filee/.env` is wrong. With XAMPP, use `DB_USERNAME=root` and an empty `DB_PASSWORD=`.
 - **Unknown database:** create the `workspace` database first ([02-setup-backend.md](02-setup-backend.md), Step 5).
 
 After you change `.env`, run `php artisan config:clear`, then stop and start `php artisan serve` again.
@@ -145,7 +145,7 @@ SQLSTATE[42S02]: Base table or view not found: 1146 Table 'workspace.students' d
 
 **Why:** the database exists, but the tables were not made yet.
 
-**Fix:** in the `backend` folder run:
+**Fix:** in the `backend/filee` folder run:
 
 ```powershell
 php artisan migrate
@@ -189,7 +189,7 @@ Set OFFICER_PASSWORD and VIEWER_PASSWORD before seeding a live website.
 The seeder stops on purpose, so a live website never gets the easy password `password`.
 
 **Fix:** set both `OFFICER_PASSWORD` and `VIEWER_PASSWORD` (on Railway: the backend's **Variables** tab),
-then seed or deploy again. On your own computer, keep `APP_ENV=local` in `backend/.env`.
+then seed or deploy again. On your own computer, keep `APP_ENV=local` in `backend/filee/.env`.
 
 ---
 
@@ -201,7 +201,7 @@ then seed or deploy again. On your own computer, keep `APP_ENV=local` in `backen
 No application encryption key has been specified.
 ```
 
-**Fix:** in the `backend` folder run `php artisan key:generate`, then restart `php artisan serve`.
+**Fix:** in the `backend/filee` folder run `php artisan key:generate`, then restart `php artisan serve`.
 
 ---
 
@@ -215,7 +215,7 @@ or you ran `migrate:fresh`, which deletes all tokens).
 
 **Fix:** log in again. This is normal after `migrate:fresh`.
 
-If it happens right after every login, check that `frontend/src/api/client.js` still adds the
+If it happens right after every login, check that `frontend/filee/src/api/client.js` still adds the
 `Authorization` header, and that `routes/api.php` still has `Route::middleware('auth:sanctum')`.
 
 ---
@@ -240,17 +240,17 @@ has been blocked by CORS policy
 **Why:** usually one of these:
 
 1. The Laravel server is not running, or it crashed. (A crashed request often looks like a CORS error.)
-2. `VITE_API_URL` in `frontend/.env` has a typo (for example, a missing `/api`, or the wrong port).
-3. `FRONTEND_URL` is set in `backend/.env` (or on the server) to an address that does not match the React app,
-   or `backend/config/cors.php` was changed.
+2. `VITE_API_URL` in `frontend/filee/.env` has a typo (for example, a missing `/api`, or the wrong port).
+3. `FRONTEND_URL` is set in `backend/filee/.env` (or on the server) to an address that does not match the React app,
+   or `backend/filee/config/cors.php` was changed.
 
 **Fix:**
 
 1. Check Terminal 1. Is `php artisan serve` running? Any red error there or in `storage/logs/laravel.log`?
-2. Open `frontend/.env`. It should be exactly `VITE_API_URL=http://127.0.0.1:8000/api`.
+2. Open `frontend/filee/.env`. It should be exactly `VITE_API_URL=http://127.0.0.1:8000/api`.
    After changing it, stop `npm run dev` (**Ctrl + C**) and start it again.
-3. On your own computer, `FRONTEND_URL` should stay commented out (`# FRONTEND_URL=...`) in `backend/.env`,
-   so every origin is allowed. In `backend/config/cors.php`, `'paths'` must include `'api/*'`.
+3. On your own computer, `FRONTEND_URL` should stay commented out (`# FRONTEND_URL=...`) in `backend/filee/.env`,
+   so every origin is allowed. In `backend/filee/config/cors.php`, `'paths'` must include `'api/*'`.
    Then run `php artisan config:clear`.
 4. On a live website, see [10-deploy-to-railway.md, Part 7](10-deploy-to-railway.md#part-7-extra-safety-allow-only-your-website-to-call-the-api).
 
@@ -260,7 +260,7 @@ has been blocked by CORS policy
 
 **Why:** React could not get any answer from the API.
 
-**Fix:** start the API in the `backend` folder with `php artisan serve`, and check `VITE_API_URL` in `frontend/.env`.
+**Fix:** start the API in the `backend/filee` folder with `php artisan serve`, and check `VITE_API_URL` in `frontend/filee/.env`.
 
 ---
 
@@ -327,7 +327,7 @@ directly with your mouse. You can always select the text by hand and press **Ctr
 
 ## Still stuck?
 
-1. Read the **last** lines of `backend/storage/logs/laravel.log`.
+1. Read the **last** lines of `backend/filee/storage/logs/laravel.log`.
 2. Copy the exact error message and search for it on the internet.
 3. When you solve it, add it to your **Error Fix Journal** in the app, so you never have to search again.
 
