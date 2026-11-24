@@ -56,7 +56,7 @@ Only the files we wrote or changed are listed. The rest is normal Laravel.
 | Path | What it is |
 |------|------------|
 | `routes/api.php` | The list of all API addresses, and which controller method answers each one. **Start reading here.** |
-| `app/Http/Controllers/` | One controller per topic. Each method answers one route. (`Controller.php` is Laravel's empty base class.) |
+| `app/Http/Controllers/` | One controller per topic. Each method answers one route. |
 | `app/Http/Middleware/OfficerOnly.php` | The guard that lets only officers change data. |
 | `app/Models/` | One model per table, with the relationships (for example, a `Student` has many `StudentCharge`). |
 | `database/migrations/` | The files that create the tables. |

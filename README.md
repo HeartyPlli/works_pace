@@ -101,12 +101,50 @@ frontend/filee/src/
   App.jsx                 <- the list of pages (which address shows which page)
 ```
 
-**The folders you can ignore** (Laravel, Node.js, or Git make and use them; you rarely open them):
+### Every file, explained
 
-- `backend/filee/bootstrap`, `backend/filee/config`, `backend/filee/public`, `backend/filee/storage`
-  (except `storage/logs/laravel.log`, where Laravel writes its errors)
-- `backend/filee/vendor` and `frontend/filee/node_modules` : downloaded packages. Never edit these.
-- `backend/filee/app/Providers` : Laravel's start up file. This app does not change it.
+The project only has files that the app really uses. Here is what each one is for.
+
+**`backend/filee`** (56 files)
+
+| File or folder | What it is |
+|----------------|------------|
+| `.env.example` | The list of settings. Copy it to `.env` and put your own values there. |
+| `.gitignore`, `.gitattributes` | Git settings: which files NOT to upload, and the same line endings on every computer. |
+| `artisan` | Laravel's helper program: `php artisan serve`, `php artisan migrate`, and so on. |
+| `composer.json`, `composer.lock` | The list of PHP packages (Laravel, Sanctum for login tokens, Tinker) and their exact versions. |
+| `app/Http/Controllers/` | 10 controllers: the code that answers each API request (one file per topic). |
+| `app/Http/Middleware/OfficerOnly.php` | The guard that stops viewers from changing data. |
+| `app/Models/` | 8 models: one per database table, with the links between tables. |
+| `bootstrap/app.php` | Starts Laravel: loads the route files, names the `officer` guard, sends errors as JSON. |
+| `bootstrap/cache/` | Laravel saves speed up files here by itself. Do not edit. |
+| `config/cors.php` | Which websites may call the API. (For all other settings Laravel uses its built in defaults.) |
+| `database/migrations/` | 10 files that create the tables: users and sessions, our 8 tables, and the login tokens table. |
+| `database/seeders/` | 6 files that fill the tables with the two accounts and the sample data. |
+| `public/index.php` | The door every request comes through. Do not edit. |
+| `resources/views/README.md` | Keeps an empty folder that Laravel needs. This app has no Laravel pages (React shows the pages). |
+| `routes/api.php` | The list of all API addresses. |
+| `routes/web.php` | Only the "The Workspace API is running" message at `/`. |
+| `storage/` | Laravel writes logs, sessions, and cache files here. The small `.gitignore` files inside only keep the empty folders on GitHub. Your errors are in `storage/logs/laravel.log`. |
+| `.env`, `vendor/` | **Only on your computer**, never on GitHub: your settings, and the downloaded packages (`composer install`). |
+
+**`frontend/filee`** (42 files)
+
+| File or folder | What it is |
+|----------------|------------|
+| `.env.example` | The API address. Copy it to `.env`. |
+| `.gitignore`, `.gitattributes` | Git settings, same as the backend. |
+| `index.html` | The only HTML page. React puts every screen inside it. |
+| `package.json`, `package-lock.json` | The list of JavaScript packages (React, axios, ...), the `npm run dev` command, and exact versions. |
+| `vite.config.js` | Settings for Vite, the tool that runs the React app (port 5173). |
+| `src/main.jsx` | The starting point of the React app. |
+| `src/App.jsx` | The list of pages: which address shows which page. |
+| `src/index.css` | All the styles (colors, sizes, spacing) in one file. |
+| `src/helpers.js` | Small helpers: money and date format, resolution numbers, error messages. |
+| `src/api/` | `client.js` (the axios setup that adds the login token) and one file of API functions per module. |
+| `src/components/` | Shared parts: `Layout`, `Sidebar`, `Topbar`, `SearchBar`, `Modal`, `DataTable`, `CodeBox`, plus `AuthContext` (who is logged in) and `ProtectedRoute` (the login guard). |
+| `src/pages/` | 17 files: one per screen, plus the small pop up forms those screens open. |
+| `.env`, `node_modules/` | **Only on your computer**, never on GitHub: your API address, and the downloaded packages (`npm install`). |
 
 A longer tour is in [docs/05-how-the-code-works.md](docs/05-how-the-code-works.md).
 
@@ -245,6 +283,8 @@ If `git commit` says `nothing to commit`, that is fine. Still run `git push`.
    DB_CONNECTION=mysql
    DB_URL=${{MySQL.MYSQL_URL}}
    LOG_CHANNEL=stderr
+   CACHE_STORE=file
+   QUEUE_CONNECTION=sync
    OFFICER_PASSWORD=your-strong-officer-password
    VIEWER_PASSWORD=your-strong-viewer-password
    ```

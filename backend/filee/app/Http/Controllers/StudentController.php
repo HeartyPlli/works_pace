@@ -10,7 +10,7 @@ use App\Models\Student;
 use App\Models\StudentCharge;
 use Illuminate\Http\Request;
 
-class StudentController extends Controller
+class StudentController
 {
     // GET /api/students?search=maria
     public function index(Request $request)

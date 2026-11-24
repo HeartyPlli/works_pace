@@ -1,6 +1,10 @@
 #!/usr/bin/env php
 <?php
 
+// artisan
+// Laravel's helper program. You use it in the terminal, for example:
+// php artisan serve, php artisan migrate, php artisan db:seed. Laravel made this file. Do not change it.
+
 use Illuminate\Foundation\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 

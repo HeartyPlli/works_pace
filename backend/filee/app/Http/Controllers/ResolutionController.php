@@ -9,7 +9,7 @@ namespace App\Http\Controllers;
 use App\Models\Resolution;
 use Illuminate\Http\Request;
 
-class ResolutionController extends Controller
+class ResolutionController
 {
     // GET /api/resolutions?search=fee&year=2026&status=adopted
     // Lists resolutions. All three filters are optional.

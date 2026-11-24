@@ -10,7 +10,7 @@ use App\Models\ErrorEntry;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
-class ErrorEntryController extends Controller
+class ErrorEntryController
 {
     // GET /api/entries?search=cors&tag=Laravel&favorite=1
     // All three filters are optional.

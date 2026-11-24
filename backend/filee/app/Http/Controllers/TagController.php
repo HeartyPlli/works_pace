@@ -7,7 +7,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tag;
 
-class TagController extends Controller
+class TagController
 {
     // GET /api/tags
     // Each tag also has "error_entries_count": how many entries use it.

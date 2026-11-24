@@ -10,7 +10,7 @@ use App\Models\Payment;
 use App\Models\StudentCharge;
 use Illuminate\Http\Request;
 
-class PaymentController extends Controller
+class PaymentController
 {
     // POST /api/payments
     public function store(Request $request)

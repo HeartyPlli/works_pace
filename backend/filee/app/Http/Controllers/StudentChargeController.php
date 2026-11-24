@@ -9,7 +9,7 @@ use App\Models\Charge;
 use App\Models\StudentCharge;
 use Illuminate\Http\Request;
 
-class StudentChargeController extends Controller
+class StudentChargeController
 {
     // POST /api/student-charges
     // Example body: { "charge_id": 1, "student_ids": [1, 2, 3], "date_incurred": "2026-08-15" }

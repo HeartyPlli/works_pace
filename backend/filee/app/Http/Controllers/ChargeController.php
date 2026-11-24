@@ -8,7 +8,7 @@ namespace App\Http\Controllers;
 use App\Models\Charge;
 use Illuminate\Http\Request;
 
-class ChargeController extends Controller
+class ChargeController
 {
     // GET /api/charges
     // Lists all charges, with the resolution that approved each one,

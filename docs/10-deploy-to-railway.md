@@ -180,6 +180,8 @@ You do not need to create a database by hand like you did with XAMPP.
    DB_CONNECTION=mysql
    DB_URL=${{MySQL.MYSQL_URL}}
    LOG_CHANNEL=stderr
+   CACHE_STORE=file
+   QUEUE_CONNECTION=sync
    OFFICER_PASSWORD=type-your-strong-officer-password
    VIEWER_PASSWORD=type-your-strong-viewer-password
    ```
@@ -200,6 +202,7 @@ You do not need to create a database by hand like you did with XAMPP.
 | `APP_KEY` | The secret key Laravel uses to protect data. |
 | `DB_CONNECTION` and `DB_URL` | Connect to the MySQL service. `DB_URL` holds the address, user, and password in one line. |
 | `LOG_CHANNEL=stderr` | Sends Laravel's errors to Railway's logs, so you can read them. |
+| `CACHE_STORE=file`, `QUEUE_CONNECTION=sync` | Keep Laravel's cache in files and run background jobs right away, the same as on your computer. (This app has no cache or jobs tables.) |
 | `OFFICER_PASSWORD`, `VIEWER_PASSWORD` | The passwords of the two accounts, used once when the accounts are made. If they are missing, the seeder stops with an error on purpose, so the website never gets the easy password "password". |
 
 > **Want the live website to start EMPTY** (no fake students, resolutions, or journal entries)?

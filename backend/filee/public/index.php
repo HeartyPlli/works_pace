@@ -1,5 +1,9 @@
 <?php
 
+// index.php
+// Every web request to the API comes in through this file. It starts Laravel
+// and hands the request to the routes. Laravel made this file. Do not change it.
+
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 

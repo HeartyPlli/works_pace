@@ -1,8 +1,8 @@
 <?php
 
-// This migration creates the "users" table (the people who can log in),
-// plus two small tables Laravel uses for password resets and sessions.
-// We added the "role" column: "officer" can do everything, "viewer" can only read.
+// This migration creates the "users" table (the people who can log in).
+// "role" is "officer" (can do everything) or "viewer" (can only read).
+// It also creates the "sessions" table, which Laravel uses for normal web pages.
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -17,17 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('role', ['officer', 'viewer'])->default('viewer');
-            $table->rememberToken();
             $table->timestamps();
-        });
-
-        Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->string('email')->primary();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
         });
 
         Schema::create('sessions', function (Blueprint $table) {
@@ -44,7 +36,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
     }
 };

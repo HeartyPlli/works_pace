@@ -7,7 +7,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 
-class ReportController extends Controller
+class ReportController
 {
     // GET /api/reports/unpaid
     public function unpaid()

@@ -10,7 +10,7 @@ use App\Models\Payment;
 use App\Models\Resolution;
 use App\Models\StudentCharge;
 
-class DashboardController extends Controller
+class DashboardController
 {
     // GET /api/dashboard
     public function index()

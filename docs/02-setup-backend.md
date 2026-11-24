@@ -193,8 +193,6 @@ php artisan migrate
    INFO  Running migrations.
 
   0001_01_01_000000_create_users_table ................... DONE
-  0001_01_01_000001_create_cache_table ................... DONE
-  0001_01_01_000002_create_jobs_table .................... DONE
   2026_01_01_000001_create_resolutions_table ............. DONE
   2026_01_01_000002_create_students_table ................ DONE
   2026_01_01_000003_create_charges_table ................. DONE
