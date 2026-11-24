@@ -14,3 +14,9 @@ dist
 *.log
 .vscode
 .DS_Store
+
+# Database backups. They can hold real student names and payments.
+# Never upload them to GitHub (this works even without the top folder's .gitignore).
+*.sql
+*.sql.gz
+*.sql.zip
