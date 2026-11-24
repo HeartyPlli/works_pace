@@ -11,7 +11,8 @@ import { getDashboard } from '../api/dashboardApi.js';
 import { formatMoney, formatResolutionNumber, capitalize, getErrorMessage } from '../helpers.js';
 
 export default function DashboardPage() {
-  const { isOfficer } = useAuth();
+  const { isOfficer, user } = useAuth();
+  const showJournal = user.show_journal !== false;
   const [dashboard, setDashboard] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -51,10 +52,10 @@ export default function DashboardPage() {
               <Icon name="plus" size={16} />
               Resolution
             </Link>
-            <Link className="button button-light" to="/journal/new">
+            {showJournal && <Link className="button button-light" to="/journal/new">
               <Icon name="plus" size={16} />
               Journal entry
-            </Link>
+            </Link>}
           </div>
         )}
       </div>
@@ -83,7 +84,7 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      <div className="two-columns">
+      <div className={showJournal ? 'two-columns' : undefined}>
         {/* Latest 5 resolutions */}
         <div className="card">
           <div className="card-heading">
@@ -105,7 +106,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Top 5 most repeated errors */}
-        <div className="card">
+        {showJournal && <div className="card">
           <div className="card-heading">
             <h2>Most repeated errors</h2>
             <Link to="/journal">Open journal</Link>
@@ -119,22 +120,18 @@ export default function DashboardPage() {
               </li>
             ))}
           </ul>
-        </div>
+        </div>}
       </div>
 
       {/* Quick links to other pages */}
       <nav className="dashboard-shortcuts" aria-label="Quick links">
-        <Link to="/students">
-          <Icon name="users" size={17} />
-          Student directory
-        </Link>
-        <Link to="/charges">
+        <Link to="/documents">
           <Icon name="layers" size={17} />
-          Manage charges
+          Open documents
         </Link>
-        <Link to="/reports/unpaid">
-          <Icon name="report" size={17} />
-          View unpaid report
+        <Link to="/collections">
+          <Icon name="wallet" size={17} />
+          Manage collections
         </Link>
       </nav>
     </div>

@@ -3,7 +3,7 @@
 // Any component can call useAuth() to get the user, the login function, and the logout function.
 
 import { createContext, useContext, useEffect, useState } from 'react';
-import { loginRequest, logoutRequest, getMe } from '../api/authApi.js';
+import { loginRequest, logoutRequest, getMe, saveJournalPreference } from '../api/authApi.js';
 
 const AuthContext = createContext(null);
 
@@ -53,7 +53,11 @@ export function AuthProvider({ children }) {
     setUser(null);
   }
 
-  // Officers can add, edit, and delete. Viewers can only look.
+  async function updateJournalPreference(showJournal) {
+    setUser(await saveJournalPreference(showJournal));
+  }
+
+  // Officers can add, edit, and delete workspace records.
   const isOfficer = user !== null && user.role === 'officer';
 
   const value = {
@@ -62,6 +66,7 @@ export function AuthProvider({ children }) {
     isOfficer: isOfficer,
     login: login,
     logout: logout,
+    updateJournalPreference,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

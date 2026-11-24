@@ -34,23 +34,23 @@ export default function Sidebar({ open, onClose }) {
             <Icon name="document" />
             Resolutions
           </NavLink>
-          <NavLink to="/students" className="sidebar-link" onClick={onClose}>
-            <Icon name="users" />
-            Students
-          </NavLink>
-          <NavLink to="/charges" className="sidebar-link" onClick={onClose}>
+          <NavLink to="/documents" className="sidebar-link" onClick={onClose}>
             <Icon name="layers" />
-            Charges
+            Documents
           </NavLink>
-          <NavLink to="/reports/unpaid" className="sidebar-link" onClick={onClose}>
-            <Icon name="report" />
-            Unpaid Report
+          <NavLink to="/collections" className="sidebar-link" onClick={onClose}>
+            <Icon name="wallet" />
+            Collections
           </NavLink>
 
-          <p className="sidebar-heading">Personal</p>
+          <p className="sidebar-heading">Journal</p>
           <NavLink to="/journal" className="sidebar-link" onClick={onClose}>
             <Icon name="code" />
             Error Fix Journal
+          </NavLink>
+          <NavLink to="/account" className="sidebar-link" onClick={onClose}>
+            <Icon name="users" />
+            Account
           </NavLink>
         </nav>
 

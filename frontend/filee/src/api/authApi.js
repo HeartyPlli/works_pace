@@ -20,3 +20,22 @@ export async function getMe() {
   const response = await apiClient.get('/me');
   return response.data.user;
 }
+
+export async function requestAccount(email, password, showJournal) {
+  const response = await apiClient.post('/register', { email, password, show_journal: showJournal });
+  return response.data.message;
+}
+
+export async function saveJournalPreference(showJournal) {
+  const response = await apiClient.patch('/me/preferences', { show_journal: showJournal });
+  return response.data.user;
+}
+
+export async function getPendingAccounts() {
+  const response = await apiClient.get('/accounts/pending');
+  return response.data;
+}
+
+export async function approveAccount(id) {
+  await apiClient.post('/accounts/' + id + '/approve');
+}

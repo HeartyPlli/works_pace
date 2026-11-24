@@ -601,14 +601,6 @@ h3 {
   font-weight: 600;
 }
 
-.topbar-user small {
-  display: block;
-  color: var(--muted);
-  font-size: 12px;
-  text-transform: capitalize;
-  font-weight: 400;
-}
-
 .content {
   max-width: 1600px;
   margin: 0 auto;
@@ -1030,12 +1022,50 @@ select {
   gap: 6px;
 }
 
-.login-logo {
-  width: 112px;
-  height: 76px;
-  object-fit: cover;
-  border-radius: 10px;
-  margin-bottom: 4px;
+.login-password {
+  display: grid;
+  gap: 6px;
+}
+
+.login-password-input {
+  position: relative;
+}
+
+.login-password-input input {
+  width: 100%;
+  padding-inline-end: 47px;
+}
+
+.login-password-input input::-ms-reveal {
+  display: none;
+}
+
+.login-password-input .icon-button {
+  position: absolute;
+  inset-inline-end: 3px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+}
+
+.login-box label.checkbox-item {
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.text-button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--link);
+  cursor: pointer;
+  text-align: left;
+}
+
+.text-button:hover {
+  text-decoration: underline;
 }
 
 .login-theme {

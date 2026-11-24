@@ -3,8 +3,7 @@
 // OfficerOnly.php
 // A "middleware" is code that runs BEFORE the controller.
 // This one checks the role of the logged in user.
-// Officers may go on. Everyone else gets a 403 (Forbidden) answer.
-// It is used in routes/api.php for every route that changes data.
+// Only active workspace members can access protected records.
 
 namespace App\Http\Middleware;
 
@@ -19,8 +18,8 @@ class OfficerOnly
 
         if ($user === null || $user->role !== 'officer') {
             return response()->json([
-                'message' => 'Only officers can do this. Your account can only view records.',
-            ], 403);
+                'message' => 'This account no longer has access to Workspace.',
+            ], 401);
         }
 
         // The user is an officer, so we let the request continue to the controller.

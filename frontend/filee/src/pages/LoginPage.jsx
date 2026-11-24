@@ -1,13 +1,15 @@
 // LoginPage.jsx
 // The login form (address /login). It sends the email and password to Laravel.
 // If they are correct, Laravel gives us a token and we go to the dashboard (/dashboard).
-// The page also has the logo, the light or dark switch, and a link back to the homepage.
+// The page also has a theme switch and a link back to the homepage.
 
 import { useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
+import Icon from '../components/Icon.jsx';
 import { ThemeToggle } from '../components/ThemeContext.jsx';
 import { useAuth } from '../components/AuthContext.jsx';
 import { getErrorMessage } from '../helpers.js';
+import { requestAccount } from '../api/authApi.js';
 
 export default function LoginPage() {
   const { user, loading, login } = useAuth();
@@ -15,7 +17,11 @@ export default function LoginPage() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [creatingAccount, setCreatingAccount] = useState(false);
+  const [showJournal, setShowJournal] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
+  const [notice, setNotice] = useState('');
   const [saving, setSaving] = useState(false);
 
   // Still checking the saved token (when the app just opened). Wait a moment.
@@ -28,16 +34,32 @@ export default function LoginPage() {
     return <Navigate to="/dashboard" replace />;
   }
 
-  // Runs when the user clicks the Login button.
+  function toggleMode() {
+    setCreatingAccount(!creatingAccount);
+    setPassword('');
+    setShowPassword(false);
+    setErrorMessage('');
+    setNotice('');
+  }
+
   async function handleSubmit(event) {
     event.preventDefault();
     setErrorMessage('');
+    setNotice('');
     setSaving(true);
     try {
-      await login(email, password);
-      navigate('/dashboard');
+      if (creatingAccount) {
+        setNotice(await requestAccount(email, password, showJournal));
+        setCreatingAccount(false);
+        setPassword('');
+        setShowPassword(false);
+      } else {
+        await login(email, password);
+        navigate('/dashboard');
+      }
     } catch (error) {
       setErrorMessage(getErrorMessage(error));
+    } finally {
       setSaving(false);
     }
   }
@@ -50,14 +72,14 @@ export default function LoginPage() {
       </div>
 
       <form className="login-box" onSubmit={handleSubmit}>
-        <img className="login-logo" src="/workspace-logo.png" alt="Workspace logo" width="112" height="76" />
-        <h1>Heart Document</h1>
-        <p className="muted">Please log in to continue.</p>
+        <h1>Workspace</h1>
+        <p className="muted">{creatingAccount ? 'Create an account to request access.' : 'Sign in to your workspace.'}</p>
 
-        {errorMessage && <p className="alert alert-error">{errorMessage}</p>}
+        {errorMessage && <p role="alert" className="alert alert-error">{errorMessage}</p>}
+        {notice && <p role="status" className="alert alert-success">{notice}</p>}
 
         <label>
-          Email
+          Gmail address
           <input
             type="email"
             autoComplete="username"
@@ -67,19 +89,44 @@ export default function LoginPage() {
           />
         </label>
 
-        <label>
-          Password
-          <input
-            type="password"
-            autoComplete="current-password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            required
-          />
-        </label>
+        <div className="login-password">
+          <label htmlFor="workspace-password">Password</label>
+          <div className="login-password-input">
+            <input
+              id="workspace-password"
+              type={showPassword ? 'text' : 'password'}
+              autoComplete={creatingAccount ? 'new-password' : 'current-password'}
+              minLength={creatingAccount ? 12 : undefined}
+              maxLength={72}
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              required
+            />
+            <button
+              type="button"
+              className="icon-button"
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
+              aria-controls="workspace-password"
+              onClick={() => setShowPassword(visible => !visible)}
+            >
+              <Icon name={showPassword ? 'eye-off' : 'eye'} size={18} />
+            </button>
+          </div>
+        </div>
+
+        {creatingAccount && <>
+          <p className="muted">Use a password with at least 12 characters.</p>
+          <label className="checkbox-item">
+            <input type="checkbox" checked={showJournal} onChange={event => setShowJournal(event.target.checked)} />
+            Show Error Fix Journal on my dashboard
+          </label>
+        </>}
 
         <button type="submit" className="button button-full" disabled={saving}>
-          {saving ? 'Logging in...' : 'Login'}
+          {saving ? 'Please wait…' : creatingAccount ? 'Request account' : 'Sign in'}
+        </button>
+        <button type="button" className="text-button login-back" disabled={saving} onClick={toggleMode}>
+          {creatingAccount ? 'Back to sign in' : 'Create an account'}
         </button>
         <Link className="login-back" to="/">Back to homepage</Link>
       </form>

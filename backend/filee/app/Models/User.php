@@ -1,7 +1,7 @@
 <?php
 
 // User.php
-// A user is a person who can log in. The "role" is "officer" or "viewer".
+// An active workspace member has the officer role.
 // HasApiTokens (from Laravel Sanctum) lets a user get a login token.
 
 namespace App\Models;
@@ -19,6 +19,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'show_journal',
     ];
 
     // The password is never sent back in JSON answers.
@@ -29,6 +30,9 @@ class User extends Authenticatable
     // "hashed" means Laravel scrambles the password before saving it.
     protected $casts = [
         'password' => 'hashed',
+        'show_journal' => 'boolean',
+        'signup_pending' => 'boolean',
+        'can_manage_accounts' => 'boolean',
     ];
 
     // Returns true if this user is an officer.

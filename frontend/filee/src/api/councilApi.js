@@ -1,6 +1,5 @@
 // councilApi.js
-// Functions that talk to the Council Records and Collections routes of the API:
-// resolutions, students, charges, payments, the ledger, and the unpaid report.
+// Resolution requests and authenticated downloads for council records.
 
 import apiClient from './client.js';
 
@@ -38,61 +37,14 @@ export async function deleteResolution(id) {
   return response.data;
 }
 
-// ---------- Students ----------
-
-export async function getStudents(search) {
-  const response = await apiClient.get('/students', { params: { search: search } });
-  return response.data;
-}
-
-export async function createStudent(student) {
-  const response = await apiClient.post('/students', student);
-  return response.data;
-}
-
-export async function updateStudent(id, student) {
-  const response = await apiClient.put('/students/' + id, student);
-  return response.data;
-}
-
-export async function deleteStudent(id) {
-  const response = await apiClient.delete('/students/' + id);
-  return response.data;
-}
-
-// The ledger shows one student's charges, payments, and balance.
-export async function getStudentLedger(id) {
-  const response = await apiClient.get('/students/' + id + '/ledger');
-  return response.data;
-}
-
-// ---------- Charges, assigning charges, and payments ----------
-
-export async function getCharges() {
-  const response = await apiClient.get('/charges');
-  return response.data;
-}
-
-export async function createCharge(charge) {
-  const response = await apiClient.post('/charges', charge);
-  return response.data;
-}
-
-// data is like { charge_id: 1, student_ids: [1, 2, 3], amount_due: 100, date_incurred: '2026-06-01' }
-export async function assignCharge(data) {
-  const response = await apiClient.post('/student-charges', data);
-  return response.data;
-}
-
-// payment is like { student_charge_id: 5, amount: 50, paid_at: '2026-06-02', receipt_no: 'OR-0001' }
-export async function createPayment(payment) {
-  const response = await apiClient.post('/payments', payment);
-  return response.data;
-}
-
-// ---------- Reports ----------
-
-export async function getUnpaidReport() {
-  const response = await apiClient.get('/reports/unpaid');
-  return response.data;
+export async function downloadFile(path, filename) {
+  const response = await apiClient.get(path, { responseType: 'blob' });
+  const url = URL.createObjectURL(response.data);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  document.body.append(link);
+  link.click();
+  link.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
 }

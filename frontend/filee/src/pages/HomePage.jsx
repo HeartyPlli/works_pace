@@ -57,19 +57,19 @@ export default function HomePage() {
                 <Icon name="document" size={28} />
               </span>
               <h2>Council records &amp; collections</h2>
-              <p>Resolutions, students, charges, and payments — easy to keep in order.</p>
+              <p>Keep council records together and track collections by school year.</p>
               <ul>
                 <li>
                   <Icon name="check" size={17} />
-                  Keep council resolutions organized
+                  Organize resolutions, minutes, and narrative reports
                 </li>
                 <li>
                   <Icon name="check" size={17} />
-                  Track payments and outstanding balances
+                  Import student rosters and record official receipts
                 </li>
                 <li>
                   <Icon name="check" size={17} />
-                  Find every student's ledger in one place
+                  Check collection totals and export them to CSV
                 </li>
               </ul>
             </article>
@@ -108,7 +108,7 @@ export default function HomePage() {
           <div>
             <Icon name="layers" />
             <h3>Choose your module</h3>
-            <p>Council records or your personal journal.</p>
+            <p>Find council documents, collections, and the shared journal.</p>
           </div>
           <div>
             <Icon name="check" />

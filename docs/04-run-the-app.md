@@ -27,6 +27,8 @@ You need **three things running**: MySQL, the Laravel API, and the React app.
    npm run dev
    ```
 
+   Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+
    Wait for `Local:   http://localhost:5173/`.
 
 4. **Open** http://localhost:5173 in your browser.

@@ -19,6 +19,8 @@ const paths = {
   menu: 'M4 6h16M4 12h16M4 18h16',
   close: 'm6 6 12 12M6 18 18 6',
   check: 'm5 12 4 4L19 6',
+  eye: 'M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Zm13 0a3 3 0 1 0-6 0 3 3 0 0 0 6 0Z',
+  'eye-off': 'm3 3 18 18M10.6 6.1 12 6c6.5 0 10 6 10 6a15.1 15.1 0 0 1-3 3.4M6.2 7.1A16 16 0 0 0 2 12s3.5 6 10 6a10 10 0 0 0 4.9-1.2M9.9 9.9a3 3 0 0 0 4.2 4.2',
 };
 
 // Shows one icon. "size" is the width and height in pixels (20 if you do not give one).

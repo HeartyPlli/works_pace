@@ -8,7 +8,7 @@
 //   rows         - the list of records to show (each record must have an "id")
 //   emptyMessage - text to show when there are no rows
 
-export default function DataTable({ columns, rows, emptyMessage }) {
+export default function DataTable({ columns, rows, emptyMessage, rowKey = 'id' }) {
   if (rows.length === 0) {
     return <p className="empty-message">{emptyMessage || 'No records found.'}</p>;
   }
@@ -25,7 +25,7 @@ export default function DataTable({ columns, rows, emptyMessage }) {
         </thead>
         <tbody>
           {rows.map((row) => (
-            <tr key={row.id}>
+            <tr key={row[rowKey]}>
               {columns.map((column) => (
                 <td key={column.label}>{column.render(row)}</td>
               ))}
