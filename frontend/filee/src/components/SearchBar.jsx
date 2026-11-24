@@ -20,6 +20,7 @@ export default function SearchBar({ value, onChange, onSearch, placeholder }) {
         type="text"
         value={value}
         placeholder={placeholder}
+        aria-label={placeholder || 'Search records'}
         onChange={(event) => onChange(event.target.value)}
       />
       <button type="submit" className="button">

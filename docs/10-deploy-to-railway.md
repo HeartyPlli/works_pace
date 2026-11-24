@@ -297,18 +297,21 @@ to `index.html`, so refreshing a page like `/students` works.
    If it asks for a port, choose the suggested one.
 2. You get an address like `frontend-production-1234.up.railway.app`.
 
-**This is your website.** Open it. You see the **Workspace** login box.
+**This is your website.** Open it. You see the **Workspace homepage** with the logo.
 
 ---
 
 ## Part 6. Log in and test
 
-1. Log in with `officer@example.com` and **your OFFICER_PASSWORD** (not "password").
-2. You see the Dashboard. With sample data: **PHP 1,800.00** collected and **PHP 1,325.00** unpaid.
+1. Click **Log in**. Log in with `officer@example.com` and **your OFFICER_PASSWORD** (not "password").
+2. You see the Dashboard (address `/dashboard`). With sample data: **PHP 1,800.00** collected and **PHP 1,325.00** unpaid.
 3. Try a few things: add a student, record a payment, open a resolution's print page, add a journal entry.
 4. Open the **Students** page and press **F5** to refresh. The page must load again (not a 404 error).
-5. Open the website on your **phone**. It works there too.
-6. Log out and log in as `viewer@example.com` with your VIEWER_PASSWORD. The Add, Edit, and Delete buttons are gone.
+   Also try `/dashboard` and refresh it.
+5. Open the website on your **phone**. Use the menu button (three lines, top left) to move between pages.
+   Try the sun and moon switch for light and dark mode.
+6. Log out (the arrow icon, top right) and log in as `viewer@example.com` with your VIEWER_PASSWORD.
+   The Add, Edit, and Delete buttons are gone.
 
 **Share the frontend address** (the one from Part 5) with your teacher or classmates.
 They log in with the accounts and passwords you give them.
@@ -412,7 +415,7 @@ Your code on GitHub and your computer is not touched. You can deploy again any t
 - [ ] Two strong passwords chosen and kept private.
 - [ ] Railway project with a **MySQL** service.
 - [ ] **backend** service: Root Directory `/backend/filee`, Watch Paths `/backend/filee/**`, pre-deploy command, variables, domain. The address shows "The Workspace API is running".
-- [ ] **frontend** service: Root Directory `/frontend/filee`, Watch Paths `/frontend/filee/**`, `VITE_API_URL`, domain. The address shows the login box.
+- [ ] **frontend** service: Root Directory `/frontend/filee`, Watch Paths `/frontend/filee/**`, `VITE_API_URL`, domain. The address shows the homepage, and **Log in** opens the login box.
 - [ ] Logged in with the new officer password. Refreshing `/students` works.
 - [ ] (Optional) `FRONTEND_URL` set on the backend.
 - [ ] You know where to see the cost (**Usage** page) and how to delete the project.

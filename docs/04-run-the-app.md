@@ -40,7 +40,8 @@ You need **three things running**: MySQL, the Laravel API, and the React app.
 
 ## Log in
 
-1. Open http://localhost:5173. You see the **Workspace** login box.
+1. Open http://localhost:5173. You see the **homepage** (the public welcome page).
+   Click **Log in** (top right, or the big button). You see the login box with the logo.
 2. Type an email and password:
 
    | Role | Email | Password | What you can do |
@@ -49,23 +50,42 @@ You need **three things running**: MySQL, the Laravel API, and the React app.
    | viewer | viewer@example.com | password | Look only |
 
 3. Click **Login**.
-4. **When it works:** you see the Dashboard, and the top right corner shows your name and role.
+4. **When it works:** you see the Dashboard (the address is now `/dashboard`). The top right corner shows
+   your initials, your name, and your role. (The sample officer account is shown as **Heart Document**.)
 5. **If it says "Wrong email or password."**: check for typing mistakes.
 6. **If it says "Cannot reach the server. Is the Laravel server running?"**: Terminal 1 is not running `php artisan serve`.
 
 You stay logged in even if you close the browser, because the login token is saved in the browser.
-Click **Logout** (top right) to log out.
+To log out, click the **log out icon** (the arrow, top right corner).
 
 ---
 
 ## A tour of every page
 
-### Dashboard (home page)
+### The parts you see on every page
+
+- **The menu** on the left: Dashboard, the Council pages, and (under **Personal**) the Error Fix Journal.
+  At the bottom: **Back to homepage**.
+- **The top bar:** the page you are on (like "Workspace / Students"), the light or dark switch,
+  your initials and name, and the log out icon.
+- **Light or dark mode:** click the sun (light) or the moon (dark). The app remembers your choice.
+- **On a phone** (or a narrow window): the menu is hidden. Click the **menu button** (three lines, top left) to open it.
+  Click a page, the **X**, or the dark area to close it.
+
+### Homepage
+
+The public page at http://localhost:5173 (address `/`). Anyone can see it.
+It shows what the app does, the two features, and three "how it works" steps.
+The **Log in** button goes to the login page. If you are already logged in, it says **Open dashboard** instead.
+
+### Dashboard
 
 - **Total collected:** all the money paid so far.
 - **Total unpaid:** all the money students still owe.
-- **Latest resolutions:** the 5 newest resolutions. Click one to open its print page.
+- **Latest resolutions:** the 5 newest resolutions. Click one to open its print page. **View all** opens the list.
 - **Most repeated errors:** the 5 journal entries with the highest "seen" count. Click one to open it.
+- **+ Resolution** and **+ Journal entry** (officer only): quick buttons to add a new one.
+- **Quick links** at the bottom: Student directory, Manage charges, and View unpaid report.
 
 With the sample data you should see **PHP 1,800.00** collected and **PHP 1,325.00** unpaid.
 
@@ -148,7 +168,9 @@ Your notebook of errors you have solved.
 ## Try the viewer account
 
 Log out, then log in as `viewer@example.com`. You can open every page, but the
-Add, Edit, Delete, Assign, Add payment, and Seen again buttons are gone.
+Add, Edit, Delete, Assign, Add payment, and Seen again buttons are gone
+(and so are the **+ Resolution** and **+ Journal entry** buttons on the dashboard).
+The top bar shows **Council Viewer**.
 Even if someone sends a change request to the API by hand, the API answers
 "Only officers can do this. Your account can only view records."
 

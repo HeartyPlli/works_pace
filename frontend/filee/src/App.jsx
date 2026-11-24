@@ -6,6 +6,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import Layout from './components/Layout.jsx';
 import LoginPage from './pages/LoginPage.jsx';
+import HomePage from './pages/HomePage.jsx';
 import DashboardPage from './pages/DashboardPage.jsx';
 import ResolutionsPage from './pages/ResolutionsPage.jsx';
 import ResolutionFormPage from './pages/ResolutionFormPage.jsx';
@@ -21,7 +22,8 @@ import EntryDetailPage from './pages/EntryDetailPage.jsx';
 export default function App() {
   return (
     <Routes>
-      {/* Anyone can see the login page. */}
+      {/* Anyone can see the homepage and the login page. */}
+      <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
 
       {/* Every page inside here needs a login. */}
@@ -31,7 +33,7 @@ export default function App() {
 
         {/* These pages show inside the layout (sidebar and top bar). */}
         <Route element={<Layout />}>
-          <Route path="/" element={<DashboardPage />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
 
           <Route path="/resolutions" element={<ResolutionsPage />} />
           <Route path="/resolutions/new" element={<ResolutionFormPage />} />
@@ -50,7 +52,7 @@ export default function App() {
         </Route>
       </Route>
 
-      {/* Any unknown address goes back to the dashboard. */}
+      {/* Any unknown address goes back to the homepage. */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

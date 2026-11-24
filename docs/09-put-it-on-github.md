@@ -124,7 +124,7 @@ Now the files are green. **Look through the list.** You must **NOT** see any of 
 
 If you see one of them, **stop**. Run `git reset` to undo `git add .`, and check the `.gitignore` files.
 
-> Tip: the list is long (about 110 files). In VS Code, the **Source Control** panel on the left
+> Tip: the list is long (about 120 files). In VS Code, the **Source Control** panel on the left
 > (the icon with three dots and lines) shows the same list in an easier way.
 
 ### Step 5. Save the first snapshot (commit)
@@ -133,7 +133,7 @@ If you see one of them, **stop**. Run `git reset` to undo `git add .`, and check
 git commit -m "First version of Workspace"
 ```
 
-**When it works:** you see something like `[main (root-commit) 1a2b3c4] First version of Workspace` and `111 files changed`.
+**When it works:** you see something like `[main (root-commit) 1a2b3c4] First version of Workspace` and `117 files changed`.
 
 ### Step 6. Connect your computer to the GitHub repository
 

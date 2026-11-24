@@ -104,12 +104,15 @@ All the frontend files are in `frontend/filee`. The paths below start from there
 |------|------------|
 | `src/main.jsx` | The starting point. It shows `App` inside `index.html`. |
 | `src/App.jsx` | The list of pages (routes), like `/students` shows `StudentsPage`. |
-| `src/index.css` | All the styles in one file. |
+| `src/index.css` | The basic styles: layout, spacing, tables, forms, and the print page. |
+| `src/design.css` | The look: colors, light and dark mode, homepage, sidebar, top bar. Loaded after `index.css`, so it wins. |
+| `public/workspace-logo.png` | The logo picture (used by `Brand.jsx`, the login page, and the browser tab). |
 | `src/api/client.js` | The ONE axios object. It knows the API address and adds the token to every request. |
 | `src/api/authApi.js`, `dashboardApi.js`, `councilApi.js`, `journalApi.js` | Small functions that call the API, like `getStudents()`. |
 | `src/components/AuthContext.jsx` | Remembers who is logged in. Has `login()` and `logout()`. Any component can call `useAuth()`. |
 | `src/components/ProtectedRoute.jsx` | Sends visitors who are not logged in to `/login`. |
-| `src/components/` (the rest) | Parts that many pages share: `Layout`, `Sidebar`, `Topbar`, `SearchBar`, `Modal`, `DataTable`, `CodeBox`. |
+| `src/components/ThemeContext.jsx` | Light or dark mode. `ThemeToggle` is the sun and moon switch. |
+| `src/components/` (the rest) | Parts that many pages share: `Layout`, `Sidebar`, `Topbar`, `Brand` (logo and name), `Icon` (small SVG icons), `SearchBar`, `Modal`, `DataTable`, `CodeBox`. |
 | `src/pages/` | One file per screen, plus the small forms the screens open in a pop up (like `StudentForm.jsx`). |
 | `src/helpers.js` | Small helpers: `formatMoney(150)` gives `PHP 150.00`, `formatResolutionNumber(4, 2026)`, dates, and `getErrorMessage(error)`, which turns an API error into a short message for the screen. |
 | `.env` | `VITE_API_URL`, the address of the API. |
@@ -118,7 +121,7 @@ All the frontend files are in `frontend/filee`. The paths below start from there
 
 | Module | Files in `src/pages/` |
 |--------|------------------------|
-| Login and home | `LoginPage`, `DashboardPage` |
+| Homepage, login, and dashboard | `HomePage` (address `/`), `LoginPage` (`/login`), `DashboardPage` (`/dashboard`) |
 | Council | `ResolutionsPage`, `ResolutionFormPage`, `ResolutionPrintPage`, `StudentsPage`, `StudentForm`, `StudentLedgerPage`, `PaymentForm`, `ChargesPage`, `ChargeForm`, `AssignChargeForm`, `UnpaidReportPage` |
 | Error Fix Journal | `EntriesPage`, `EntryCard`, `EntryDetailPage`, `EntryFormPage` |
 
@@ -155,7 +158,7 @@ async function handleSubmit(event) {
   setSaving(true);                   // the button now says "Logging in..."
   try {
     await login(email, password);    // go to Step 2
-    navigate('/');                   // Step 9: go to the dashboard
+    navigate('/dashboard');          // Step 9: go to the dashboard
   } catch (error) {
     setErrorMessage(getErrorMessage(error));   // show "Wrong email or password."
     setSaving(false);
@@ -291,18 +294,21 @@ setUser(data.user);
 
 - `localStorage` is a small storage space in your browser. The token stays there even after you close the browser.
 - `setUser` changes the state, so every component that uses `useAuth()` now knows who you are.
-  The Topbar shows "Council Officer" with the "officer" badge.
+  The Topbar shows the initials, the name, and the role "officer".
+  (For the sample officer, `Topbar.jsx` shows the name **Heart Document** instead of "Council Officer".)
 - `isOfficer` becomes `true`, so pages show the Add, Edit, and Delete buttons.
 
 ### Step 9. Go to the dashboard (LoginPage again)
 
-`navigate('/')` changes the address to `/`. In `App.jsx`, `/` is inside `<ProtectedRoute />`:
+`navigate('/dashboard')` changes the address to `/dashboard`. In `App.jsx`, `/dashboard` is inside `<ProtectedRoute />`:
 
 ```jsx
 <Route element={<ProtectedRoute />}>
   <Route element={<Layout />}>
-    <Route path="/" element={<DashboardPage />} />
+    <Route path="/dashboard" element={<DashboardPage />} />
 ```
+
+(The address `/` without a name is the public homepage, `HomePage`. It is outside `ProtectedRoute`, so anyone can see it.)
 
 `ProtectedRoute` sees that `user` is not null, so it shows the page. `Layout` draws the sidebar and top bar,
 and `DashboardPage` opens.
@@ -335,7 +341,7 @@ and the dashboard shows **PHP 1,800.00** collected.
 
 ### Logging out
 
-**Logout** calls `POST /api/logout`. `AuthController@logout` deletes the token row
+The **log out icon** (top right) calls `POST /api/logout`. `AuthController@logout` deletes the token row
 (`$request->user()->currentAccessToken()->delete()`), so that token never works again.
 React removes the token from `localStorage` and sets `user` back to `null`.
 

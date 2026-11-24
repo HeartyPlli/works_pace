@@ -122,7 +122,7 @@ npm run dev
 **Leave this terminal open.** The React app only works while this command runs.
 
 Hold **Ctrl** and click the `http://localhost:5173/` link, or type it in your browser.
-You should see the **Workspace** login box.
+You should see the **Workspace homepage** with the logo. Click **Log in** to see the login box.
 
 **To stop the dev server:** click in the terminal and press **Ctrl + C**.
 

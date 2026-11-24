@@ -13,10 +13,20 @@ This project is made for learning. The code is kept simple on purpose, and every
 
 ## What the app can do
 
-**Dashboard (home page)**
+**Homepage** (address `/`, anyone can see it)
+- A short welcome page with the two features, three "how it works" steps, and a **Log in** button.
+  (When you are already logged in, the button says **Open dashboard**.)
+
+**Dashboard** (address `/dashboard`, the first page after login)
 - Total money collected and total money still unpaid.
 - The 5 latest resolutions.
 - The 5 errors you met the most times.
+- Quick links, and (for officers) buttons to add a resolution or a journal entry.
+
+**Look and feel**
+- **Light and dark mode:** the sun and moon switch (top right). Your choice is remembered.
+- **Works on phones:** on a small screen the menu hides behind a menu button (top left).
+- A logo (`frontend/filee/public/workspace-logo.png`) on the homepage, the login page, the menu, and the browser tab.
 
 **Council Records and Collections**
 - **Resolutions:** add, edit, delete, list, and search. Filter by year and by status (draft, adopted, filed).
@@ -95,10 +105,15 @@ backend/filee/
 
 frontend/filee/src/
   pages/                  <- one file for each screen (and the small forms those screens use)
-  components/             <- parts many pages share: sidebar, top bar, table, pop up, login state
+  components/             <- parts many pages share: sidebar, top bar, logo, icons, table, pop up,
+                             login state, and light or dark mode
   api/                    <- the functions that call the backend
   helpers.js              <- small helpers: money and date format, resolution numbers, error messages
   App.jsx                 <- the list of pages (which address shows which page)
+  index.css, design.css   <- the styles (design.css is the look: colors, light and dark mode)
+
+frontend/filee/public/
+  workspace-logo.png      <- the logo picture
 ```
 
 ### Every file, explained
@@ -128,22 +143,24 @@ The project only has files that the app really uses. Here is what each one is fo
 | `storage/` | Laravel writes logs, sessions, and cache files here. The small `.gitignore` files inside only keep the empty folders on GitHub. Your errors are in `storage/logs/laravel.log`. |
 | `.env`, `vendor/` | **Only on your computer**, never on GitHub: your settings, and the downloaded packages (`composer install`). |
 
-**`frontend/filee`** (42 files)
+**`frontend/filee`** (48 files)
 
 | File or folder | What it is |
 |----------------|------------|
 | `.env.example` | The API address. Copy it to `.env`. |
 | `.gitignore`, `.gitattributes` | Git settings, same as the backend. |
-| `index.html` | The only HTML page. React puts every screen inside it. |
+| `index.html` | The only HTML page. React puts every screen inside it. It also sets light or dark mode early, so the page does not flash. |
 | `package.json`, `package-lock.json` | The list of JavaScript packages (React, axios, ...), the `npm run dev` command, and exact versions. |
 | `vite.config.js` | Settings for Vite, the tool that runs the React app (port 5173). |
+| `public/workspace-logo.png` | The logo picture. Files in `public` are used as they are (here: `/workspace-logo.png`). |
 | `src/main.jsx` | The starting point of the React app. |
 | `src/App.jsx` | The list of pages: which address shows which page. |
-| `src/index.css` | All the styles (colors, sizes, spacing) in one file. |
+| `src/index.css` | The basic styles: layout, spacing, tables, forms, and the print page. |
+| `src/design.css` | The look: colors, light and dark mode, the homepage, sidebar, top bar, and cards. It loads after `index.css`, so it wins. |
 | `src/helpers.js` | Small helpers: money and date format, resolution numbers, error messages. |
 | `src/api/` | `client.js` (the axios setup that adds the login token) and one file of API functions per module. |
-| `src/components/` | Shared parts: `Layout`, `Sidebar`, `Topbar`, `SearchBar`, `Modal`, `DataTable`, `CodeBox`, plus `AuthContext` (who is logged in) and `ProtectedRoute` (the login guard). |
-| `src/pages/` | 17 files: one per screen, plus the small pop up forms those screens open. |
+| `src/components/` | Shared parts: `Layout`, `Sidebar`, `Topbar`, `Brand` (logo and name), `Icon` (the small icons), `SearchBar`, `Modal`, `DataTable`, `CodeBox`, plus `AuthContext` (who is logged in), `ThemeContext` (light or dark mode), and `ProtectedRoute` (the login guard). |
+| `src/pages/` | 18 files: the homepage, one file per screen, and the small pop up forms those screens open. |
 | `.env`, `node_modules/` | **Only on your computer**, never on GitHub: your API address, and the downloaded packages (`npm install`). |
 
 A longer tour is in [docs/05-how-the-code-works.md](docs/05-how-the-code-works.md).
@@ -165,9 +182,9 @@ Do these in order. Each step links to a guide with every detail.
 7. Start the API with `php artisan serve` and leave that terminal open.
 8. Open a second terminal in the `frontend/filee` folder, run `npm install`, and copy `.env.example` to `.env`.
    Guide: [docs/03-setup-frontend.md](docs/03-setup-frontend.md)
-9. Run `npm run dev` and open http://localhost:5173 in your browser.
+9. Run `npm run dev` and open http://localhost:5173 in your browser. You see the homepage.
    Guide: [docs/04-run-the-app.md](docs/04-run-the-app.md)
-10. Log in with `officer@example.com` / `password`, then change the default passwords.
+10. Click **Log in**, log in with `officer@example.com` / `password` (you land on `/dashboard`), then change the default passwords.
     Guide: [docs/06-manual-steps-checklist.md](docs/06-manual-steps-checklist.md)
 
 Something went wrong? See [docs/07-troubleshooting.md](docs/07-troubleshooting.md).
@@ -312,7 +329,8 @@ If `git commit` says `nothing to commit`, that is fine. Still run `git push`.
 ### Step 5. Visit your website
 
 Open the frontend's address (like `https://frontend-production-1234.up.railway.app`). **This is your website.**
-Log in with `officer@example.com` and **your OFFICER_PASSWORD** (not "password"). Share this address with others.
+You see the homepage. Click **Log in**, and log in with `officer@example.com` and **your OFFICER_PASSWORD**
+(not "password"). You land on the dashboard (`/dashboard`). Share the website address with others.
 
 ### Updating the website later
 
@@ -365,7 +383,9 @@ We had to choose some things. Here they are, so you know what to expect.
 | React | React 19 with Vite 8 | Vite 8 needs Node.js 20.19 or newer (or 22.12 or newer). |
 | Pages | react-router-dom 7 | One address per page, like `/students`. |
 | API calls | axios 1 | Easy to add the login token to every request. |
-| Styles | One plain CSS file: `frontend/filee/src/index.css` | No Tailwind or UI library, so nothing extra to learn. |
+| Styles | Two plain CSS files: `index.css` (basic layout) and `design.css` (the look, light and dark mode) | No Tailwind or UI library, so nothing extra to learn. |
+| Icons | Drawn with SVG in `src/components/Icon.jsx` | No icon library to install. |
+| Pages | `/` is the public homepage, `/dashboard` is the first page after login | Visitors see what the app is before they log in. |
 | API address | http://127.0.0.1:8000/api | Laravel's normal address. |
 | React address | http://localhost:5173 | Vite's normal address. |
 | Money | Shown as `PHP 1,250.00` | Plain text, works in every font. |

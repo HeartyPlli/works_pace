@@ -9,6 +9,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Workspace</title>
+    <meta name="description" content="Keep council records, collections, and useful programming fixes organized in one workspace." />
+    <!-- The logo in the browser tab (the file is in the "public" folder) -->
+    <link rel="icon" type="image/png" href="/workspace-logo.png" />
+    <!--
+      Sets light or dark mode BEFORE the page shows, so dark mode does not flash white first.
+      It uses the same saved choice as src/components/ThemeContext.jsx.
+    -->
+    <script>
+      try {
+        const savedTheme = localStorage.getItem('workspace-theme');
+        if (savedTheme === 'dark' || savedTheme === 'light') {
+          document.documentElement.dataset.theme = savedTheme;
+        } else {
+          document.documentElement.dataset.theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+      } catch {}
+    </script>
   </head>
   <body>
     <div id="root"></div>

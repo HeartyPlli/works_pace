@@ -244,18 +244,27 @@ Because it is inside `ProtectedRoute` and `Layout`, the page needs a login and g
 
 ### Step 3. Add the link in the sidebar
 
-Open `frontend/filee/src/components/Sidebar.jsx`. Under the "Error Fix Journal" link, add:
+Open `frontend/filee/src/components/Sidebar.jsx`. Under the "Error Fix Journal" link, add a link
+that looks like the others (same class, an icon from `Icon.jsx`, and `onClick={onClose}` so it closes the menu on phones):
 
 ```jsx
-<NavLink to="/tags" className="sidebar-link">
+<NavLink to="/tags" className="sidebar-link" onClick={onClose}>
+  <Icon name="layers" />
   Tags
 </NavLink>
+```
+
+**Optional:** to show "Tags" in the top bar (instead of "Workspace"), open `frontend/filee/src/components/Topbar.jsx`
+and add one line to the `sectionNames` list:
+
+```jsx
+tags: 'Tags',
 ```
 
 ### Step 4. Try it
 
 Save all files. Click **Tags** in the sidebar. You see a table of tags with their entry counts.
-The **Tags** link turns blue because `NavLink` adds the `active` class on the current page.
+The **Tags** link is highlighted because `NavLink` adds the `active` class on the current page.
 
 **If you see a blank page:** press **F12** and read the **Console**. Usually it is a typo in an `import` line,
 or a file name with different capital letters.
